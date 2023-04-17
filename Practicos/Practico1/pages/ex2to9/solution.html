@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio 2</title>
+  </head>
+
+  <body>
+    <h2>Ejercicio 2</h2>
+    <p>
+      ⭐Ingresar dos valores y calcular la suma de ambos valores. Para operar
+      aritméticamente con los dos valores debemos asegurarnos que sean valores
+      numéricos.
+    </p>
+    <hr />
+    <br />
+    <div id="ex2" style="line-height: 1.8">
+      <label for="numFirstValue">Número X</label>
+      <input
+        type="number"
+        name="numFirstValue"
+        id="numFirstValue"
+        placeholder="Ingrese un número..."
+      />
+      <br />
+      <label for="numSecondValue">Número Y</label>
+      <input
+        type="number"
+        name="numSecondValue"
+        id="numSecondValue"
+        placeholder="Ingrese un número..."
+      />
+      <br />
+      <button id="calcSum2">Calcular suma (X+Y)</button>
+      <p id="sum2Result"></p>
+    </div>
+    <br>
+    <hr>
+    <h2>Ejercicio 3</h2>
+    <p>⭐Ingresar tres valores y calcular la suma de los tres valores.</p>
+    <div id="ex3" style="line-height: 1.8">
+        <label for="numFirstVal3">Ingresar primer valor.</label>
+        <input type="number" name="numFirstVal3" id="numFirstVal3" placeholder="Ingrese un número..."><br>
+        <label for="numSecondVal3">Ingresar segundo valor.</label>
+        <input type="number" name="numSecondVal3" id="numSecondVal3" placeholder="Ingrese un número..."><br>
+        <label for="numThirdVal3">Ingresar tercer valor.</label>
+        <input type="number" name="numThirdVal3" id="numThirdVal3" placeholder="Ingrese un número..."><br>
+        <input type="button" value="Caluclar suma." id="calcSum3">
+        <p id="sum3Result"></p>
+    </div>
+    <br><hr>
+    <div id="ex4" style="line-height: 1.8">
+        <h2>Ejercicio 4</h2>
+        <p>⭐Ingresar dos valores y mostrar la suma de esos valores en un párrafo y en otro párrafo el resultado de la multiplicación de esos dos valores.
+            Se recomienda capturar los dos valores una única vez y luego operar con ellos en una única función.
+        </p>
+        <label for="numFirstVal4">Ingrese primer valor.</label>
+        <input type="number" name="numFirstVal4" id="numFirstVal4" placeholder="Ingrese un número..."><br>
+        <label for="numSecondVal4">Ingrese segundo valor</label>
+        <input type="number" name="numSecondVal4" id="numSecondVal4" placeholder="Ingrese un número..."><br>
+        <input type="button" id="calcValues4" value="Calcular resultados">
+        <p id="sum4Result"></p>
+        <p id="mul4Result"></p>
+    </div>
+    <br><hr>
+    <div id="ex5" style="line-height: 1.8">
+        <h2>Ejercicio 5</h2>
+        <p>⭐Ingresar el lado de un cuadrado y calcular y mostrar su área.
+            El área de un cuadrado es el cuadrado de la longitud del lado.
+        </p>
+        <label for="numSquareSide5">Medida del lado del cuadrado</label>
+        <input type="number" name="numSquareSide5" id="numSquareSide5" placeholder="Ingrese un número..."><br>
+        <input type="button" value="Calcular área del cuadrado" id="squareCalc5">
+        <p id="squareArea5"></p>
+    </div><br><hr>
+    <div id="ex6" style="line-height: 1.8">
+        <h2>Ejercicio 6</h2>
+        <p>⭐Ingresar un valor en pesos uruguayos y el valor de tipo de cambio de la fecha y calcular el equivalente en dólares.
+        </p>
+        <label for="numMoneyQty6">Ingrese el monto (en pesos)</label>
+        <input type="number" name="numMoneyQty6" id="numMoneyQty6" placeholder="Ingrese un monto..."><br>
+        <p> 1 USD = 40,20 UYU - 27/03/2023</p>
+        <input type="button" value="Calcular cambio" id="exchangeCalc6">
+        <p id="exchangeResult6"></p>
+    </div><br><hr>
+    <div id="ex7" style="line-height: 1.8">
+        <h2>Ejercicio 7</h2>
+        <p>⭐Ingresar dos valores y calcular y mostrar el resto de dividir el primero entre el segundo.
+        </p>
+        <label for="numFirstVal7">Ingrese primer valor.</label>
+        <input type="number" name="numFirstVal7" id="numFirstVal7" placeholder="Ingrese un número..."><br>
+        <label for="numSecondVal7">Ingrese segundo valor.</label>
+        <input type="number" name="numSecondVal7" id="numSecondVal7" placeholder="Ingrese un número..."><br>
+        <input type="button" id="modCalc7" value="Calcular Resto"">
+        <p id="modResult7"></p>
+    </div>
+    <div id="ex8" style="line-height: 1.8">
+        <h2>Ejercicio 8</h2>
+        <p>⭐Ingresar tres valores y calcular la suma de los primeros dos menos el tercero.</p>
+        <label for="numFirstVal8">Ingresar primer valor.</label>
+        <input type="number" name="numFirstVal8" id="numFirstVal8" placeholder="Ingrese un número..."><br>
+        <label for="numSecondVal8">Ingresar segundo valor.</label>
+        <input type="number" name="numSecondVal8" id="numSecondVal8" placeholder="Ingrese un número..."><br>
+        <label for="numThirdVal8">Ingresar tercer valor.</label>
+        <input type="number" name="numThirdVal8" id="numThirdVal8" placeholder="Ingrese un número..."><br>
+        <input type="button" value="Caluclar suma." id="calcSum8">
+        <p id="sum8Result"></p>
+    </div><br><hr>
+    <div id="ex9" style="line-height: 1.8">
+        <h2>Ejercicio 9</h2>
+        <p>⭐Ingresar tres valores y calcular el primero elevado al cuadrado menos la suma de los otras dos.
+        </p>
+        <label for="numFirstVal9">Ingresar primer valor.</label>
+        <input type="number" name="numFirstVal9" id="numFirstVal9" placeholder="Ingrese un número..."><br>
+        <label for="numSecondVal9">Ingresar segundo valor.</label>
+        <input type="number" name="numSecondVal9" id="numSecondVal9" placeholder="Ingrese un número..."><br>
+        <label for="numThirdVal9">Ingresar tercer valor.</label>
+        <input type="number" name="numThirdVal9" id="numThirdVal9" placeholder="Ingrese un número..."><br>
+        <input type="button" value="Caluclar suma." id="calc9">
+        <p id="calc9Result"></p>
+
+    </div>
+
+
+    
+    <br />
+    <hr />
+    <a href="../../index.html">Inicio</a><br />
+    <a href="../ex1/solution.html">Ejercicio 1</a><br />
+    <a href="../ex10-11/solution.html">Ejercicio 10 y 11</a><br />
+    <a href="../ex12/solution.html">Ejercicio 12</a><br />
+    <a href="../ex13-14/solution.html">Ejercicio 13 y 14</a><br />
+    <a href="../ex15/solution.html">Ejercicio 15</a><br />
+    <a href="../ex16/solution.html">Ejercicio 16</a><br />
+    <a href="../ex17/solution.html">Ejercicio 17</a>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
