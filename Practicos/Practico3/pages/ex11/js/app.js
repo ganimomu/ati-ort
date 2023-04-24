@@ -17,14 +17,14 @@ function multiplicar() {
   document.querySelector("#pNumbers").innerHTML = "";
 
   for (let i = 1; i <= compValueMax; i++) {
-    let resto = i % 3;
-    console.log(`${i}/3 me da resto=${resto}`);
+    let resto = i % number3;
+    console.log(`${i}/${number3} me da resto=${resto}`);
     console.log(`Entre al for ${i}`);
     if (resto === 0 && i > compValueMin && i < compValueMax) {
       console.log(`Entre al if ${i}`);
       document.querySelector(
         "#pNumbers"
-      ).innerHTML += `${i} es múltiplo de ${number3} comprendido entre ${number1} y ${number2} <br>`;
+      ).innerHTML += `${i} es múltiplo de ${number3} comprendido entre ${compValueMin} y ${compValueMax} <br>`;
     }
   }
 }
