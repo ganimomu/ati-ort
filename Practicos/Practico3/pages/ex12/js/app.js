@@ -8,7 +8,10 @@ function multiplicar() {
 
   for (let i = 1; i <= number1; i++) {
     resultado *= i;
-    document.querySelector("#pNumbers").innerHTML += ` x ${i}`;
+    if (i !== 1) {
+      //cheating
+      document.querySelector("#pNumbers").innerHTML += ` x ${i} `;
+    }
   }
   document.querySelector("#pNumbers").innerHTML += `= ${resultado}`;
 }

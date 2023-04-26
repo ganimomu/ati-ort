@@ -16,27 +16,50 @@
     </p>
     <hr />
     <br />
-    <div style="line-height: 1.8">
+    <div id="divSelection" style="line-height: 1.8">
         <label for="slcMonth">Elegir mes del año</label><br>
         <select name="slcMonth" id="slcMonth">
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
+            <option value="disabled" selected disabled>Seleccionar un mes...</option>
+            <option value="JAN">Enero</option>
+            <option value="FEB">Febrero</option>
+            <option value="MAR">Marzo</option>
+            <option value="APR">Abril</option>
+            <option value="MAY">Mayo</option>
+            <option value="JUN">Junio</option>
+            <option value="JUL">Julio</option>
+            <option value="AUG">Agosto</option>
+            <option value="SEP">Setiembre</option>
+            <option value="OCT">Octubre</option>
+            <option value="NOV">Noviembre</option>
+            <option value="DEC">Diciembre</option>
         </select><br>
-        <label for="slcWeekDay">Elegir día del año</label><br>
-        <select name="slcWeekDay" id="slcWeekDay">
+        <label for="slcWeekday">Elegir día del año</label><br>
+        <select name="slcWeekday" id="slcWeekday">
+            <option value="disabled" selected disabled>Seleccionar un mes...</option>
+            <option value="MON">Lunes</option>
+            <option value="TUE">Martes</option>
+            <option value="WED">Miercoles</option>
+            <option value="THU">Jueves</option>
+            <option value="FRI">Viernes</option>
+            <option value="SAT">Sabado</option>
+            <option value="SUN">Domingo</option>
+        </select><br>
+        <input type="button" value="Crear calendario" id="btnCalendar">
+    </div>
+    <div id="divCalendar">
+        <table border="1">
+            <tr id="trWeekday">
+                <td>Domingo</td>
+                <td>Lunes</td>
+                <td>Martes</td>
+                <td>Miercoles</td>
+                <td>Jueves</td>
+                <td>Viernes</td>
+                <td>Sabado</td>
+            </tr>
 
-        </select>
+        </table>
+        <input type="button" value="Volver a crear un calendario" id="btnReset">
     </div>
     <br />
     <hr />

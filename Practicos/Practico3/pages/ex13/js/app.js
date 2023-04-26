@@ -9,7 +9,7 @@ function multiplicar() {
   for (let i = 1; i <= height; i++) {
     document.querySelector("#pNumbers").innerHTML += `<br>`;
     for (let y = 1; y <= width; y++) {
-      document.querySelector("#pNumbers").innerHTML += `0`;
+      document.querySelector("#pNumbers").innerHTML += `⊠`;
     }
   }
 }

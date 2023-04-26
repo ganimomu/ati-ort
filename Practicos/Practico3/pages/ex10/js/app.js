@@ -7,8 +7,8 @@ function multiplicar() {
 
   document.querySelector("#pNumbers").innerHTML = "";
 
-  if (number1 > number2) {
-    for (let i = number2; i <= number1; i++) {
+  if (number1 < number2) {
+    for (let i = number1; i <= number2; i++) {
       document.querySelector("#pNumbers").innerHTML += `${resultado}*${i} = `;
       resultado = resultado * i;
       document.querySelector("#pNumbers").innerHTML += `${resultado} <br>`;
