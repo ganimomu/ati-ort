@@ -1,10 +1,12 @@
 document.querySelector("#btnFunc").addEventListener("click", appFunction);
 
 function calcularAreaRectangulo(b, h) {
-  if (b < 0 || h < 0) {
-    return -1;
+  if (!isNaN(b) && !isNaN(h)) {
+    if (b < 0 || h < 0) {
+      return -1;
+    }
+    return b * h;
   }
-  return b * h;
 }
 
 function appFunction() {

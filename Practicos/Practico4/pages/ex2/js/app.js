@@ -1,20 +1,17 @@
 // FUNCIÓN PEDIDA POR EL EJERCICIO
 
-function getEven(n1, n2) {
-  let contador = 0;
-  console.log(n1 + " " + n2);
-  if (!isNaN(n1) && !isNaN(n2)) {
-    for (let i = n1; i <= n2; i++) {
-      if (i % 2 === 0) {
-        ++contador;
-      }
-    }
-  } else {
-    contador = -1;
-  }
-  return contador;
+function esMayor(edad, tope) {
+  return edad > tope;
 }
-
+/* Versión redundante
+function esMayor(edad, tope) {
+  if (edad > tope) {
+    return true;
+  } else {
+    return false;
+  }
+}
+ */
 // CÓDIGO PARA FACILITAR CONTROL
 
 let ourButton = document.querySelector("#btnFunc");
@@ -25,7 +22,11 @@ ourButton.addEventListener("click", showNumber);
 function showNumber() {
   let number1 = Number(document.querySelector("#txtNumber1").value);
   let number2 = Number(document.querySelector("#txtNumber2").value);
+  if (esMayor(number1, number2)) {
+    textField.innerHTML = "Es mayor";
+  } else {
+    textField.innerHTML = "No es mayor";
+  }
 
-  textField.innerHTML =
-    getEven(Math.min(number1, number2), Math.max(number1, number2)) + "<br>";
+  //  textField.innerHTML = esMayor(number1, number2) + "<br>";
 }
