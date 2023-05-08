@@ -5,25 +5,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 4</title>
+    <title>Ejercicio 7</title>
 </head>
 
 <body>
-    <h1>Ejercicio 4</h1>
+    <h1>Ejercicio 7</h1>
     <p>
-        ⭐Crear una función calcularAreaTriangulo, que reciba como parámetro base y altura y devuelva el área del
-        triángulo.
-        Se recomienda invocar posteriormente a esta función para verificar su correcto funcionamiento.
-        Se debe validar que ambos valores sean numéricos positivos, en caso contrario devolver -1.
+        ⭐⭐Crear una función que reciba como parámetro un valor de temperatura (en Fahrenheit) y una unidad de medida y
+        convierta esa temperatura a la unidad correspondiente.
     </p>
     <hr />
     <br />
     <div style="line-height: 1.8">
-        <label for="txtBase">Base</label><br>
-        <input type="text" id="txtBase"><br>
-        <label for="txtHeight">Altura</label><br>
-        <input type="text" id="txtHeight"><br>
-        <input type="button" value="Calcular área" id="btnFunc">
+        <label for="txtTemp">Temperatura</label><br>
+        <input type="text" id="txtTemp"> F<br>
+        <select name="slcUnit" id="slcUnit">
+            <option value="disabled" disabled selected>Seleccionar unidad a convertir</option>
+            <option value="C">Celsius (°C)</option>
+            <option value="K">Kelvin (K)</option>
+            <option value="Ra">Rankine (Ra)</option>
+            <option value="Re">Réaumur (Re)</option>
+        </select>
+        <br>
+        <!-- <input type="button" value="Convertir a" id="btnFunc"> -->
+        <button id="btnFunc">Convertir a</button>
         <p id="pAux"></p>
 
     </div>

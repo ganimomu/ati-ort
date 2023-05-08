@@ -5,7 +5,7 @@ function calcularAreaRectangulo(b, h) {
     if (b < 0 || h < 0) {
       return -1;
     }
-    return (b * h) / 2;
+    return b * h;
   }
 }
 

@@ -4,6 +4,7 @@ function getEven(n1, n2) {
   let contador = 0;
   console.log(n1 + " " + n2);
   if (!isNaN(n1) && !isNaN(n2)) {
+    //verificación de clase
     for (let i = n1; i <= n2; i++) {
       if (i % 2 === 0) {
         ++contador;
