@@ -1,20 +1,20 @@
-document.querySelector("#btnFunc").addEventListener("click", charRepInString);
-let contador = 0;
+document.querySelector("#btnFunc").addEventListener("click", charReplacement);
 
-function charCounter(string, char) {
+function charReplacer(string, char) {
+  let newString = "";
   for (let index = 0; index < string.length; index++) {
-    if (string.charAt(index) === char) {
-      ++contador;
+    if (string.toLowerCase().charAt(index) === char.toLowerCase()) {
+      newString += "*";
+    } else {
+      newString += string.charAt(index);
     }
   }
+  return newString;
 }
 
-function charRepInString() {
+function charReplacement() {
   contador = 0;
   let texto = document.querySelector("#txtText").value;
   let letra = document.querySelector("#txtLetra").value;
-  charCounter(texto.toLowerCase(), letra.toLowerCase());
-  document.querySelector(
-    "#pAux"
-  ).innerHTML = `En la palabra especificada, hay ${contador} letras "${letra}"`;
+  document.querySelector("#pAux").innerHTML = `${charReplacer(texto, letra)}`;
 }
