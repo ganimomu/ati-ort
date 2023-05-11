@@ -2,6 +2,7 @@
 // Códigos en ejercicios son primeras versiones de los presentes en la libreria
 
 function vowelCounter(string) {
+  let contador = 0;
   for (let index = 0; index < string.length; index++) {
     if (
       string.charAt(index).toLowerCase() === "a" ||
@@ -13,14 +14,28 @@ function vowelCounter(string) {
       ++contador;
     }
   }
+  return contador;
+}
+function charReplacer(string, char, replacingChar = "*") {
+  let newString = "";
+  for (let index = 0; index < string.length; index++) {
+    if (string.toLowerCase().charAt(index) === char.toLowerCase()) {
+      newString += replacingChar;
+    } else {
+      newString += string.charAt(index);
+    }
+  }
+  return newString;
 }
 
 function charCounter(string, char) {
+  let contador = 0;
   for (let index = 0; index < string.length; index++) {
     if (string.charAt(index) === char) {
       ++contador;
     }
   }
+  return contador;
 }
 
 function invertText(texto) {
@@ -36,6 +51,7 @@ function isGreater(input, comparison) {
 }
 
 function wordCounter(string) {
+  let contador = 0;
   if (string && string !== " ") {
     ++contador;
   }
@@ -48,4 +64,5 @@ function wordCounter(string) {
       contador++;
     }
   }
+  return contador;
 }
