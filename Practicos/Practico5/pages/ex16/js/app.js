@@ -2,14 +2,16 @@ document.querySelector("#btnFunc").addEventListener("click", idChecker);
 let textField = document.querySelector("#pAux");
 
 function idValidator(civId) {
+  let ci = civId;
+  if (ci.length === 7) {
+    ci = "0" + ci;
+  }
   let modernValue = "2987634";
   let acumulador = 0;
-  let verNumber = Number(civId.charAt(civId.length - 1));
+  let verNumber = Number(ci.charAt(ci.length - 1));
   console.log(verNumber);
-  if (civId.length === 8) {
-    for (i = 0; i < civId.length - 1; i++) {
-      acumulador += Number(civId.charAt(i)) * Number(modernValue.charAt(i));
-    }
+  for (i = 0; i < ci.length - 1; i++) {
+    acumulador += Number(ci.charAt(i)) * Number(modernValue.charAt(i));
   }
   //let verificando = verNumber + 10 - (acumulador % 10);
   let verificando;

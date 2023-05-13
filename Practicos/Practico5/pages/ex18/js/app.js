@@ -1,16 +1,24 @@
 document.querySelector("#btnFunc").addEventListener("click", deptCheck);
 let textField = document.querySelector("#pAux");
-let mensaje = `Ingrese una matricula con el formato correcto. (Formato: ABC-1234)`;
+let mensaje = `La matricula ingresada no es valida. Por favor verifique los datos ingresados.`;
 
 function plateCheck(string) {
-  if (string.length !== 8) {
+  if (string.length !== 7) {
     return mensaje;
   }
   switch (string.charAt(0)) {
     case "A":
       return `La matricula corresponde al departamento de: <strong>Canelones</strong>`;
     case "B":
-      return `La matricula corresponde al departamento de: <strong>Maldonado</strong>`;
+      let verificando = 0;
+      for (i = 1; i < string.length; i++) {
+        verificando += Number(string.charAt(i));
+      }
+      if (isNaN(verificando)) {
+        return mensaje;
+      } else {
+        return `La matricula corresponde al departamento de: <strong>Maldonado</strong>`;
+      }
     case "C":
       return `La matricula corresponde al departamento de: <strong>Rocha</strong>`;
     case "D":
@@ -48,7 +56,32 @@ function plateCheck(string) {
   }
 }
 
+function plateValidation(plate) {
+  if (plate.length === 7) {
+    for (i = 0; i < plate; i++) {
+      if (i >= 0 && i < 3) {
+        if (!isNaN(plate.charAt(i))) {
+          return mensaje;
+        }
+      } else if (i > 3) {
+        {
+          if (isNaN(Number(plate.charAt(i)))) {
+            return mensaje;
+          }
+        }
+      }
+    }
+  }
+  return plate;
+}
+
 function deptCheck() {
+  let spacers = "-., ";
   let plate = document.querySelector("#txtText").value.trim().toUpperCase();
-  textField.innerHTML = `${plateCheck(plate)}`;
+  for (i = 0; i < spacers.length; i++) {
+    plate = charReplacer(plate, spacers.charAt(i), "");
+  }
+  let validatedPlate = plateValidation(plate);
+  console.log(validatedPlate);
+  textField.innerHTML = `${plateCheck(validatedPlate)}`;
 }
