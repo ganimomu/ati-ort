@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <h1>Ejercicio 1</h1>
+    <p>⭐a) Crear la interfaz y la funcionalidad para almacenar datos de personas (nombre, edad, nacionalidad). <br>
+        b) Crear un botón que al ser presionado arme una tabla con todos los datos de personas disponibles. <br>
+        c) Crear otro botón que arme una nueva tabla con todos los datos de las personas mayores de edad.
+    </p>
+    <hr />
+    <br />
+    <div style="line-height: 1.8">
+        <label for="txtName">Ingrese su nombre</label>&nbsp<input type="text" name="txtName" id="txtName"><br>
+        <label for="txtAge">Ingrese su edad</label>&nbsp<input type="text" name="txtAge" id="txtAge"><br>
+        <label for="txtNationality">Ingrese su nacionalidad</label>&nbsp<input type="text" name="txtNationality"
+            id="txtNationality"><br>
+        <button id="btnFunc">Ingresar datos</button>
+        <button id="btnOverAge">Mostrar mayores de edad</button><br>
+
+        <div id="divGeneralTable" hidden>
+            <h2>Listado de personas disponibles</h2>
+            <p id="pGAux"></p>
+            <table id="tableArray" border="1">
+                <thead>
+                    <tr>
+                        <td>
+                            <strong>
+                                Nombre
+                            </strong>
+                        </td>
+                        <td>
+                            <strong>
+                                Edad
+                            </strong>
+                        </td>
+                        <td>
+                            <strong>
+                                Nacionalidad
+                            </strong>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody id="tableDataGeneral">
+
+                </tbody>
+            </table>
+        </div> <br>
+        <div id="divOverAgeTable" hidden>
+            <p id="pDAux"></p>
+            <h2>Personas mayores de edad</h2>
+            <table id="tableArray2" border="1">
+                <thead>
+                    <tr>
+                        <td>
+                            <strong>
+                                Nombre
+                            </strong>
+                        </td>
+                        <td>
+                            <strong>
+                                Edad
+                            </strong>
+                        </td>
+                        <td>
+                            <strong>
+                                Nacionalidad
+                            </strong>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody id="tableDataOver">
+
+                </tbody>
+            </table>
+        </div> <br>
+
+
+    </div>
+    <br />
+    <hr />
+    <a href="../../index.html">Inicio</a><br />
+    <a href="../ex1/solution.html">Ejercicio 1</a><br>
+    <a href="../ex2/solution.html">Ejercicio 2</a><br>
+    <a href="../ex3/solution.html">Ejercicio 3</a><br>
+    <a href="../ex4/solution.html">Ejercicio 4</a><br>
+    <a href="../ex5/solution.html">Ejercicio 5</a><br>
+    <a href="../ex6/solution.html">Ejercicio 6</a><br>
+
+    <script src="../../js/lib.js"></script>
+    <script src="js/classes.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

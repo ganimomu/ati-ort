@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio X</title>
+</head>
+
+<body>
+    <h1>Ejercicio X</h1>
+    <p>
+        ⭐⭐Un cine nos pide crear una aplicación para almacenar películas. De cada película se quiere guardar el nombre
+        (texto), el año (número), el género (comedia, drama o ciencia ficción), la cantidad de votantes (número) y el
+        total de puntos totales recibidos (número). <br>a) Crear la interfaz HTML que permita el ingreso de los datos
+        solicitados. El dato correspondiente al género se debe capturar a través de un combo desplegable. <br> b) Crear
+        la funcionalidad javascript que permita almacenar películas, teniendo en cuenta que se debe validar que el año
+        sea numérico y que el nombre sea único (que no exista otra película con ese nombre). <br> c) Agregar a la
+        interfaz HTML un botón y una tabla de datos y listar en ella todas las películas que tengan un promedio mayor o
+        igual a 4. El promedio se obtendrá de la división del total de puntos recibidos entre la cantidad de votantes.
+        Al hacer click en el botón se cargará la tabla. <br>
+        d) Crear un nuevo campo de texto en el que se pueda
+        ingresar el nombre de una película y un botón que al ser presionado busque en el array de las películas esa
+        película ingresada en el campo de texto y muestre en un párrafo en el HTML toda la información disponible de la
+        película (nombre, año, género, cantidad de votantes y total de puntos). En caso que la película no esté en el
+        array informar al usuario que esa película no se encuentra en el listado.
+    </p>
+    <hr />
+    <br />
+    <div style="line-height: 1.8">
+        <label for="txtTitle">Title:</label>
+        <input type="text" id="txtTitle"><br>
+        <label for="txtYear">Year:</label>
+        <input type="text" id="txtYear"><br>
+        <label for="slcGenre">Género:</label>
+        <select name="slcGenre" id="slcGenre">
+            <option value="select" selected disabled>Seleccionar...</option>
+            <option value="com">Comedia</option>
+            <option value="dra">Drama</option>
+            <option value="sci">Ciencia ficción</option>
+        </select><br>
+        <label for="txtReviewers">Votantes:</label>
+        <input type="text" id="txtReviewers"><br>
+        <label for="txtPoints">Total de puntos:</label>
+        <input type="text" id="txtPoints"><br>
+        <button id="btnAdd">Ingresar pelicula</button>
+        <p id="pAux"></p>
+
+    </div>
+    <br />
+    <hr />
+    <a href="../../index.html">Inicio</a><br />
+    <a href="../ex1/solution.html">Ejercicio 1</a><br>
+    <a href="../ex2/solution.html">Ejercicio 2</a><br>
+    <a href="../ex3/solution.html">Ejercicio 3</a><br>
+    <a href="../ex4/solution.html">Ejercicio 4</a><br>
+    <a href="../ex5/solution.html">Ejercicio 5</a><br>
+    <a href="../ex6/solution.html">Ejercicio 6</a><br>
+
+    <script src="../../js/lib.js"></script>
+    <script src="js/classes.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
