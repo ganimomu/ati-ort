@@ -1,4 +1,5 @@
 idCensistas = 0
+
 class Departamento {
   // Clase para componer la lista de departamentos. I Idealmente se compararia código de departamento (departamento.codigo) contra un objeto de la clase y retornar departamento.nombre donde corresponda
   constructor(nombre, codigo) {
@@ -24,7 +25,7 @@ class Censo {
     this.edad = edad;
     this.departamento = departamento;
     this.ocupacion = ocupacion;
-    this.censista;
+    this.censista = -1;
     this.verificado = false;
   }
 }

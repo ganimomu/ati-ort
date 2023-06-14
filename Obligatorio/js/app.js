@@ -13,7 +13,8 @@ function cargarDepartamentos() {
 cargarDepartamentos();
 
 /* 
-FUNCIONALIDAD PARA INGRESAR AL SISTEMA*/
+FUNCIONALIDAD PARA INGRESAR AL SISTEMA
+*/
 
 document.querySelector("#slcUser").addEventListener("change", mostrarIngreso);
 document.querySelector("#btnLogin").addEventListener("click", ingresoSistema);
@@ -36,15 +37,15 @@ function ingresoSistema() {
           }
         }
       }
-
       if (verificarLogin(username, password)) {
         login = {
           user: username,
           tipo: "censista",
         }
         limpiarCampos()
-        document.querySelector("#spanUsuario").innerHTML = `Bienvenido ${login.user}`;
-        document.querySelector("#pMsj").innerHTML = "";
+        document.querySelector("#pMsj").innerHTML = "Ingreso correctamente al sistema";
+        cambiarSeccion("iniciarCenso")
+
       } else {
         document.querySelector("#pMsj").innerHTML = "El nombre de usuario o la contraseña ingresada son incorrectas";
       }
@@ -55,9 +56,9 @@ function ingresoSistema() {
     }
   } else if (tipoUsuario === "i") {
     cedula = stringifyCedula(username)
-    if (verificacionDeCI(cedula)) {
+    if (validarCamposCompletados(cedula)) {
 
-      if (validarCamposCompletados(cedula)) {
+      if (verificacionDeCI(cedula)) {
 
         login = {
           user: cedula,
@@ -134,13 +135,19 @@ function verificacionDeCI(cedula) {
   return Number(digitoVerificar) === digitoVerificador
 }
 
-document.querySelector("#btnConsultaCensos").addEventListener("click", consultarCensos);
+// FIN LÓGICA INGRESO
 
-function consultarCensos() {
-  let cedula = document.querySelector("#txtCedula").value;
+document.querySelector("#btnIniciarCenso").addEventListener("click", censoByCensista);
+
+function censoByCensista() {
+  let cedula = stringifyCedula(document.querySelector("#txtCedulaPre").value)
   cargarDatos(cedula)
   cambiarSeccion("datos")
 }
+
+
+// INICIO LOGICA CARGA DE DATOS PARA CENSO
+
 
 function cargarDatos(cedula) {
   let stringCedula = stringifyCedula(cedula)
@@ -150,7 +157,11 @@ function cargarDatos(cedula) {
   for (let i = 0; i < sistema.censos.length; i++) {
     let persona = sistema.censos[i];
     if (persona.cedula === stringCedula) {
-      document.querySelector("#btnIngresarDatos").value = "Modificar censo";
+      if (login.tipo === "invitado") {
+        document.querySelector("#btnIngresarDatos").value = "Modificar censo";
+      } else {
+        document.querySelector("#btnIngresarDatos").value = "Validar censo";
+      }
       censoEncontrado = persona;
       document.querySelector("#txtNombre").value = persona.nombre;
       document.querySelector("#txtApellido").value = persona.apellido;
@@ -173,8 +184,17 @@ function cargarDatos(cedula) {
   cambiarSeccion("datos")
 }
 
+// FIN LÓGICA CARGA DE DATOS
 
 
+
+document.querySelector("#btnConsultaCensos").addEventListener("click", consultarCensos);
+
+function consultarCensos() {
+  let cedula = document.querySelector("#txtCedula").value;
+  cargarDatos(cedula)
+  cambiarSeccion("datos")
+}
 
 
 //---------------------------------------------------------------------------------------
@@ -318,8 +338,18 @@ function cantCensadosDept() {
   sistema.censos[0].departamento
   for (let i = 0; i < sistema.censos.length; i++) {
     sistema.censos[i].departamento
+    for (let y = 0; y < sistema.departamentos.length; y++) {
+      if (sistema.censos[i].departamento === sistema.departamentos[y].codigo) {
+        sistema.departamentos[y].censados++
+      }
+    }
   }
 
+}
+
+function usuarioVerificado() {
+  //buscar la cedula
+  //si la cedula fue verificada cambiar el verificado a true
 }
 
 
