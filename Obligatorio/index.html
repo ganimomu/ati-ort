@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moreno, Notte - Obligatorio P1</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <div id="contenedor">
+      <div id="cabezal" class="clearfix">
+        <img
+          id="logo"
+          src="https://p1.develotion.com/2023_03/logo.jpg"
+          alt="logo" />
+        <ul id="navPrincipal">
+          <li id="btnIngreso" class="btn inicio">
+            <a>Ingreso</a>
+          </li>
+          <li id="btnRegistro" class="btn inicio">
+            <a>Registro</a>
+          </li>
+          <li id="btnConsultarCensos" class="btn">
+            <a>Consultar censos pre-completados</a>
+          </li>
+          <li id="btnReasignar" class="btn censista">
+            <a>Re-asignar persona a validar</a>
+          </li>
+          <li id="btnDatos" class="btn censista invitado">
+            <a>Inicio censo</a>
+          </li>
+          <li
+            id="btnVisualizarEstadisticasCensista"
+            class="btn censista invitado">
+            <a>Visualizar estadísticas (censista)</a>
+          </li>
+          <li
+            id="btnVisualizarEstadisticasInvitado"
+            class="btn censista invitado">
+            <a>Visualizar estadísticas (invitado)</a>
+          </li>
+        </ul>
+        <div id="aux">
+          <!-- <a>Menú alt. 1</a> | <a>Menú alt. 2</a> -->
+          <a id="spanUsuario"></a>
+        </div>
+        <!-- FIN AUX -->
+      </div>
+      <!-- FIN CABEZAL -->
+      <div id="divContenido">
+        <!-- INICIO SECCION INGRESO -->
+        <div id="ingreso" class="seccion">
+          <h1>Bienvenidos al Censo 2023</h1>
+          <h3>Ingreso</h3>
+          <select name="slcUser" id="slcUser">
+            <option value="selected" disabled selected>Seleccionar...</option>
+            <option value="i">Invitado</option>
+            <option value="u">Censista</option> </select
+          ><br />
+          <div id="login">
+            <label for="txtUsuario" id="lblUsuario" style="display: none"
+              >PLACEHOLDER</label
+            >
+            <!-- PLACEHOLDER VA CAMBIAR: Para Invitado: "Ingrese su cedula:" || Para censista: "Ingrese su nombre de usuario:"-->
+            <input type="text" id="txtUsuario" style="display: none" /><br />
+            <label for="txtPassword" id="lblPassword" style="display: none"
+              >Ingresar contraseña:</label
+            >
+            <input
+              type="password"
+              id="txtPassword"
+              style="display: none" /><br />
+            <input type="button" value="Ingresar" id="btnLogin" /><br />
+            <p id="pMsj"></p>
+          </div>
+        </div>
+        <!-- FIN SECCION INGRESO -->
+
+        <!-- INICIO SECCION REGISTROs -->
+        <div id="registro" class="seccion">
+          <h1>Registrarse como nuevo censista</h1><br />
+          <label for="txtNombreDeUsuarioRegistro">
+            Ingrese un nombre de usuario:</label
+          >
+          <input type="text" id="txtNombreDeUsuarioRegistro" /><br />
+          <label for="txtNombreRegistro">Ingrese su nombre:</label>
+          <input type="text" id="txtNombreRegistro" /><br />
+          <label for="txtContraRegistro">Ingrese una contraseña:</label>
+          <input type="password" id="txtContraRegistro" /><br />
+          <input type="button" id="btnRegistrar" value="Registrarse" />
+          <p id="pMensajes"> </p
+        ></div>
+
+        <!-- FIN SECCION REGISTRO -->
+
+        <!-- INICIO SECCION INICIAR CENSO -->
+        <div id="iniciarCenso" class="seccion">
+          <label for="txtCedulaPre">Ingresar cédula:</label>
+          <input type="text" id="txtCedulaPre" /><br />
+          <input type="button" id="btnIniciarCenso" value="Iniciar censo" />
+        </div>
+        <!-- FIN SECCION INICIAR CENSO -->
+
+        <!-- INICIO SECCION DATOS CENSO -->
+        <div id="datos" class="seccion">
+          <label for="txtCedulaCenso">Ingresar cédula:</label>
+          <input type="text" id="txtCedulaCenso" /><br />
+          <label for="txtNombre">Ingresar nombre:</label>
+          <input type="text" id="txtNombre" /><br />
+          <label for="txtApellido">Ingresar apeliido:</label>
+          <input type="text" id="txtApellido" /><br />
+          <label for="txtEdad">Ingresar edad:</label>
+          <input type="text" id="txtEdad" /><br />
+          <label for="slcDepartamento">Seleccionar Departamento:</label>
+          <select id="slcDepartamento">
+            <option value="" selected disabled>Seleccione...</option>
+          </select>
+          <br />
+          <label for="slcOcupacion">Seleccionar Ocupacion:</label>
+          <select id="slcOcupacion">
+            <option value="" selected disabled>Seleccione...</option>
+            <option value="ind">Independiente</option>
+            <option value="dep">Dependiente</option>
+            <option value="est">Estudiante</option>
+            <option value="des">No trabaja</option> </select
+          ><br />
+          <p id="pAuxDatos"></p>
+          <input type="button" id="btnIngresarDatos" value="Registrar censo" />
+          <input type="button" id="btnEliminarDatos" value="Eliminar censo" />
+        </div>
+        <!-- FIN SECCION DATOS CENSO -->
+
+        <!-- INICIO SECCION CONSULTAR CENSOS -->
+        <div id="consultarCensos" class="seccion">
+          <h1>Consultar censos pre-cargados</h1>
+          <label for="txtCedula">Ingresar cedula de la persona:</label>
+          <input type="text" id="txtCedula" />
+          <input type="button" id="btnConsultaCensos" value="Consultar" />
+        </div>
+        <!-- FIN SECCION CONSULTAR CENSOS -->
+
+        <!-- INICIO SECCION REASIGNAR CENSADO -->
+        <div id="reasignar" class="seccion">
+          <h1>Reasignar persona para validar</h1>
+          <label for="slcPersonasPendientes"
+            >Personas pendientes por validar datos</label
+          >
+          <select id="slcPersonasPendientes">
+            <option value="x">xx</option> </select
+          ><br />
+          <label for="slcCensista">Censista a asignar:</label>
+          <select id="slcCensista">
+            <option value="x">xx</option> </select
+          ><br />
+          <input
+            type="button"
+            id="btnReasignacion"
+            value="Reasignar persona seleccionada a censista seleccionado" />
+        </div>
+        <!-- FIN SECCION REASIGNAR CENSADO -->
+
+        <!-- INICIO SECCION VISUALIZAR ESTAIDISTICAS -->
+        <div id="visualizarEstadisticasCensista" class="seccion">
+          <h3></h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Departamento</th>
+                <th>Cantidad censados</th>
+                <th>% censos por validar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Montevideo</td>
+                <td>nnn</td>
+                <td>35</td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+          <label for="slcEstadCensos">Graficar según edad</label><br />
+          <select name="slcEstadCensos" id="slcEstadCensos">
+            <option value="x" selected disabled>Seleccione...</option>
+          </select>
+          <br />
+        </div>
+        <!-- FIN SECCION VISUALIZAR ESTADISTICAS -->
+
+        <!-- INICIO SECCION ESTADISTICAS INVITADO -->
+        <div id="visualizarEstadisticasInvitado" class="seccion">
+          <h3>Lista de censados</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Departamento</th>
+                <th>Estudian</th>
+                <th>No trabajan</th>
+                <th>Dependientes o independientes</th>
+                <th>% total de censados</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Montevideo</td>
+                <td>23</td>
+                <td>35</td>
+                <td>65</td>
+                <td>65</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- FIN SECCION ESTADISTICAS INVITADO -->
+
+        <!--FIN ELEMENTOS-->
+      </div>
+      <!-- FIN CONTENIDO -->
+      <div id="pie">
+        <a href="https://www.ort.edu.uy">Footer</a>
+      </div>
+      <!-- FIN PIE -->
+    </div>
+    <!-- FIN CONTENEDOR -->
+    <script src="js/lib.js"></script>
+    <script src="js/classes.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

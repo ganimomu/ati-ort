@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+</head>
+
+<body>
+    <h1>Ejercicio 2</h1>
+    <p> ⭐⭐En un local de venta de guitarras se venden tres tipos de guitarras: clásicas, eléctricas y electroacústicas.
+        De cada tipo existe un único modelo. Se solicita generar una aplicación para la gestión de ventas de productos.
+        La aplicación dispone de un array indexado con objetos con la información de cada tipo de guitarra: <br><br> let
+        guitarras = [ <br> &nbsp{tipo : 1, nombre : "clásica", precio : 2000}, <br> &nbsp{tipo : 2, nombre :
+        "eléctrica", precio : 2500}, <br> &nbsp{tipo : 3, nombre : "electroacústica", precio : 2300} <br> ] <br> <br> a)
+        Crear la interfaz HTML y toda la funcionalidad para registrar ventas. Para cada venta se debe ingresar un número
+        de tipo de guitarra (1-clásica, 2-eléctrica o 3-electroacústica) y la cantidad de guitarras que se compran. Solo
+        se comprará un tipo de guitarra por venta. Esas ventas deberán quedar registradas en objetos dentro de un array
+        indexado llamado ventas. Se debe validar que ambos valores (tipo y cantidad) sean numéricos. <br> b) Crear una
+        función que reciba como parámetro un tipo de guitarra y devuelva el total de pesos generados en total por la
+        venta de ese tipo de guitarras. <br> c) Utilizando la función de la parte b, crear la interfaz HTML y la
+        funcionalidad para listar en una tabla los totales generados por la venta de cada tipo de guitarra.<br>
+    </p>
+    <hr />
+    <br />
+    <div style="line-height: 1.8">
+        <label for="slcType">Tipo de guitarra:</label>
+        <select name="slcType" id="slcType">
+            <option value="select" selected disabled>Seleccionar...</option>
+        </select><br>
+        <label for="txtQty">Cantidad a comprar:</label>
+        <input type="text" id="txtQty"><br>
+        <button id="btnBuy">Consumar venta</button>
+        <p id="pAux"></p>
+        <hr>
+        <label for="slcSold">Tipo de guitarra:</label>
+        <select name="slcSold" id="slcSold">
+            <option value="select" selected disabled>Seleccionar...</option>
+        </select><br>
+        <button id="btnSold">Calcular ingresos por guitarra</button><br>
+        <p id="pSold"></p><br>
+        <hr>
+        <button id="btnTable">Generar tabla</button><br>
+        <table border="1">
+            <thead>
+                <tr>
+                    <h2></h2>
+                    <h2></h2>
+                </tr>
+            </thead>
+            <tbody id="tblGuitarra">
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <hr />
+    <a href="../../index.html">Inicio</a><br />
+    <a href="../ex1/solution.html">Ejercicio 1</a><br>
+    <a href="../ex2/solution.html">Ejercicio 2</a><br>
+    <a href="../ex3/solution.html">Ejercicio 3</a><br>
+    <a href="../ex4/solution.html">Ejercicio 4</a><br>
+    <a href="../ex5/solution.html">Ejercicio 5</a><br>
+    <a href="../ex6/solution.html">Ejercicio 6</a><br>
+    <script src="../../js/lib.js"></script>
+    <script src="js/classes.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

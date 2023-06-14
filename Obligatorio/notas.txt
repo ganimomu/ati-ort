@@ -1,0 +1,13 @@
+Tareas a realizar:
+
+
+-si inicia como censista, que le de aviso de inicio correctamente y pueda navegar entre las secciones correspondientes.
+
+
+- Funciones de verificación:
+* Registro censista:
+    • V
+
+
+    hay que hacer 2 combos desplegables
+    

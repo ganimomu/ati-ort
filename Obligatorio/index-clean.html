@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="divContenido">
+      <!-- Contenedor -->
+      <div id="ingreso" class="seccion ingreso">
+        <h1>Bienvenidos al Censo 2023</h1>
+        <h3>Ingreso</h3>
+        <select name="slcUser" id="slcUser">
+          <option value="selected" disabled selected>Seleccionar...</option>
+          <option value="i">Invitado</option>
+          <option value="u">Censista</option>
+        </select>
+        <br />
+        <div id="login" style="display: none">
+          <label for="txtUsuario" id="lblUsuario">PLACEHOLDER</label>
+          <input type="text" id="txtUsuario" />
+          <br />
+          <label for="txtPassword" id="lblPassword" class="loginPassword"
+            >Ingresar contraseña:</label
+          >
+          <input id="txtPassword" class="loginPassword" />
+          <br />
+          <input type="button" value="Ingresar" id="btnLogin" />
+          <br />
+        </div>
+      </div>
+      <div id="registro" class="seccion">
+        <h1>Registrarse como nuevo censista</h1>
+        <br />
+        <label for="txtNombreDeUsuario" id="txtNombreDeUsuario"
+          >Ingrese un nombre de usuario:</label
+        >
+        <input type="text" id="txtNombreDeUsuario" /><br />
+        <label for="txtNombre" id="txtNombre">Ingrese su nombre:</label>
+        <input type="text" id="txtNombre" /><br />
+        <label for="txtContra" id="txtContra">Ingrese una contraseña:</label>
+        <input type="text" id="txtContra" /><br />
+        <input type="button" id="btnRegistrar" value="Registrarse" />
+        <p id="pMensajes"></p>
+        <p></p>
+      </div>
+      <div id="inicioCenso" class="seccion">
+        <label for="txtCedula">Ingresar cédula:</label>
+        <input type="text" id="txtCedula" /><br />
+        <input type="button" id="btnIniciarCenso" value="Iniciar censo" />
+      </div>
+      <div id="datos" class="seccion">
+        <label for="txtCedula">Ingresar cédula:</label>
+        <input type="text" id="txtCedula" /><br />
+        <label for="txtNombre">Ingresar nombre:</label>
+        <input type="text" id="txtNombre" /><br />
+        <label for="txtApellido">Ingresar apeliido:</label>
+        <input type="text" id="txtApellido" /><br />
+        <label for="txtEdad">Ingresar edad:</label>
+        <input type="text" id="txtEdad" /><br />
+        <label for="slcDepartamento">Seleccionar Departamento:</label>
+        <select id="slcDepartamento">
+          <option value="x" selected disabled>Seleccione...</option>
+          <option value="G">Artigas</option>
+          <option value="A">Canelones</option>
+          <option value="E">Cerro Largo</option>
+          <option value="L">Colonia</option>
+          <option value="Q">Durazno</option>
+          <option value="N">Flores</option>
+          <option value="P">Lavalleja</option>
+          <option value="B">Maldonado</option>
+          <option value="S">Montevideo</option>
+          <option value="I">Paysandu</option>
+          <option value="J">Rio Negro</option>
+          <option value="F">Rivera</option>
+          <option value="C">Rocha</option>
+          <option value="H">Salto</option>
+          <option value="M">San Jose</option>
+          <option value="K">Soriano</option>
+          <option value="R">Tacuarembo</option>
+          <option value="D">Treinta y Tres</option>
+        </select>
+        <br />
+        <label for="slcOcupacion">Seleccionar Ocupacion:</label>
+        <select id="slcOcupacion">
+          <option value="x">Seleccione...</option>
+          <option value="ind">Independiente</option>
+          <option value="dep">Dependiente</option>
+          <option value="est">Estudiante</option>
+          <option value="des">No trabaja</option>
+        </select>
+        <br />
+        <input type="button" id="btnIngresarDatos" value="Registrar censo" />
+        <br />
+        <input type="button" id="btnEliminarDatos" value="Eliminar censo" />
+      </div>
+      <div id="consultarCensos" class="seccion">
+        <h1>Consultar censos pre-cargados</h1>
+        <label for="txtCedula">Ingresar cedula de la persona:</label>
+        <input type="text" id="txtCedula" />
+        <input type="button" id="btnConsultaCensos" value="Consultar" />
+      </div>
+      <div id="reasignar" class="seccion">
+        <h1>Reasignar persona para validar</h1>
+        <label for="slcPersonasPendientes"
+          >Personas pendientes por validar datos</label
+        >
+        <select id="slcPersonasPendientes">
+          <option value="x">xx</option> </select
+        ><br />
+        <label for="slcCensista">Censista a asignar:</label>
+        <select id="slcCensista">
+          <option value="x">xx</option> </select
+        ><br />
+        <input
+          type="button"
+          id="btnReasignacion"
+          value="Reasignar persona seleccionada a censista seleccionado" />
+      </div>
+      <div id="estadCensos" class="seccion">
+        <h3></h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Departamento</th>
+              <th>Cantidad censados</th>
+              <th>% censos por validar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Montevideo</td>
+              <td>nnn</td>
+              <td>35</td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+        <label for="slcEstadCensos">Graficar según edad</label><br />
+        <select name="slcEstadCensos" id="slcEstadCensos">
+          <option value="x" selected disabled>Seleccione...</option>
+          <option value="G">Artigas</option>
+          <option value="A">Canelones</option>
+          <option value="E">Cerro Largo</option>
+          <option value="L">Colonia</option>
+          <option value="Q">Durazno</option>
+          <option value="N">Flores</option>
+          <option value="P">Lavalleja</option>
+          <option value="B">Maldonado</option>
+          <option value="S">Montevideo</option>
+          <option value="I">Paysandu</option>
+          <option value="J">Rio Negro</option>
+          <option value="F">Rivera</option>
+          <option value="C">Rocha</option>
+          <option value="H">Salto</option>
+          <option value="M">San Jose</option>
+          <option value="K">Soriano</option>
+          <option value="R">Tacuarembo</option>
+          <option value="D">Treinta y Tres</option>
+        </select>
+        <br />
+      </div>
+      <div id="estadPublicas" class="seccion">
+        <h3>Lista de censados</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Departamento</th>
+              <th>Estudian</th>
+              <th>No trabajan</th>
+              <th>Dependientes o independientes</th>
+              <th>% total de censados</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Montevideo</td>
+              <td>23</td>
+              <td>35</td>
+              <td>65</td>
+              <td>65</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- FIN CONTENIDO -->
+    </div>
+  </body>
+</html>
