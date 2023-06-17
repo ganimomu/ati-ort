@@ -12,9 +12,32 @@ function cargarDepartamentos() {
 }
 cargarDepartamentos();
 
+function reloadLogin() {
+  if (login.tipo === "censista") {
+    mostrarBotones("censista")
+  } else {
+    mostrarBotones("invitado")
+  }
+}
+
+function verificarLogin(username, password) {
+  let usuario = false
+  for (let i = 0; i < sistema.censistas.length; i++) {
+    let censista = sistema.censistas[i]
+    if (censista.usuario === username) {
+      usuario = censista
+      if (censista.contrasena === password) {
+        return usuario
+      }
+    }
+  }
+  return usuario
+}
+
 /* 
 FUNCIONALIDAD PARA INGRESAR AL SISTEMA
 */
+
 
 document.querySelector("#slcUser").addEventListener("change", mostrarIngreso);
 document.querySelector("#btnLogin").addEventListener("click", ingresoSistema);
@@ -29,25 +52,15 @@ function ingresoSistema() {
     document.querySelector("#txtCedulaCenso").removeAttribute("disabled");
     if (validarCamposCompletados(username, password)) {
 
-      let verificarLogin = (username, password) => {
-        for (let i = 0; i < sistema.censistas.length; i++) {
-          let censista = sistema.censistas[i]
-          if (censista.usuario === username) {
-            return password === censista.contrasena
-          }
-        }
-      }
-      if (verificarLogin(username, password)) {
-        login = {
-          user: username,
-          tipo: "censista",
-        }
+      let loginValidado = verificarLogin(username, password)
+      if (!loginValidado) {
+        document.querySelector("#pMsj").innerHTML = "El nombre de usuario o la contraseña ingresada son incorrectas";
+
+      } else {
+        login = loginValidado
         limpiarCampos()
         document.querySelector("#pMsj").innerHTML = "Ingreso correctamente al sistema";
         cambiarSeccion("iniciarCenso")
-
-      } else {
-        document.querySelector("#pMsj").innerHTML = "El nombre de usuario o la contraseña ingresada son incorrectas";
       }
 
     } else {
@@ -61,8 +74,9 @@ function ingresoSistema() {
       if (verificacionDeCI(cedula)) {
 
         login = {
-          user: cedula,
+          usuario: cedula,
           tipo: "invitado",
+          idCensista: -1,
           censado: false
         }
         for (let i = 0; i < sistema.censos.length; i++) {
@@ -75,18 +89,18 @@ function ingresoSistema() {
           document.querySelector("#txtCedulaCenso").value = `${cedula}`;
           break
         }
-        cargarDatos(login.user)
+        cargarDatos(login.usuario)
         cambiarSeccion("datos")
         /* mostrarBotones("invitado") */
       } else {
-        document.querySelector("#pMsj").innerHTML = "Debe completar todos los campos";
+        document.querySelector("#pMsj").innerHTML = "Introduzca una cedula valida";
       }
     } else {
-      document.querySelector("#pMsj").innerHTML = "Introduzca una cedula valida";
+      document.querySelector("#pMsj").innerHTML = "Debe completar todos los campos";
     }
   }
   if (login) {
-    document.querySelector("#spanUsuario").innerHTML = `Ingreso como ${login.user}`;
+    document.querySelector("#spanUsuario").innerHTML = `Ingreso como ${login.usuario}`;
 
   }
   tipoUsuario.innerHTML = ""
@@ -141,8 +155,16 @@ document.querySelector("#btnIniciarCenso").addEventListener("click", censoByCens
 
 function censoByCensista() {
   let cedula = stringifyCedula(document.querySelector("#txtCedulaPre").value)
-  cargarDatos(cedula)
-  cambiarSeccion("datos")
+  if (!validarCamposCompletados(cedula)) {
+    document.querySelector("#pConsultaCensos").innerHTML = "Debe completar todos los campos";
+  } else {
+    if (!verificacionDeCI(cedula)) {
+      document.querySelector("#pConsultaCensos").innerHTML = "Debe ingresar una cedula valida";
+    } else {
+      cargarDatos(cedula)
+      cambiarSeccion("datos")
+    }
+  }
 }
 
 
@@ -150,10 +172,13 @@ function censoByCensista() {
 
 
 function cargarDatos(cedula) {
+  desbloquearCampos();
+  document.querySelector("#pAuxDatos").innerHTML = "";
   let stringCedula = stringifyCedula(cedula)
   limpiarCampos()
   let censoEncontrado = null;
   document.querySelector("#btnIngresarDatos").value = "Registrar censo";
+  document.querySelector("#btnIngresarDatos").style.display = "block";
   for (let i = 0; i < sistema.censos.length; i++) {
     let persona = sistema.censos[i];
     if (persona.cedula === stringCedula) {
@@ -174,12 +199,18 @@ function cargarDatos(cedula) {
   }
   document.querySelector("#txtCedulaCenso").value = `${stringCedula}`;
 
-  if (censoEncontrado) {
-    document.querySelector("#pMsj").innerHTML = "Censo encontrado";
-    document.querySelector("#txtCedulaCenso").setAttribute("disabled", "disabled");
-  } else {
+  if (!censoEncontrado) {
     document.querySelector("#pMsj").innerHTML =
       "No se ha encontrado censo pre-cargado para la cédula ingresada";
+  } else {
+    document.querySelector("#pMsj").innerHTML = "Censo encontrado";
+    document.querySelector("#txtCedulaCenso").setAttribute("disabled", "disabled");
+    if (censoEncontrado.verificado) {
+      bloquearCampos()
+      document.querySelector("#pAuxDatos").innerHTML = `El censo para la cédula ${censoEncontrado.cedula} fue verificado por un censista. Se ha deshabilitado el ingreso de datos o modificación de los ya existentes <br>      `
+      document.querySelector("#btnIngresarDatos").style.display = "none";
+      document.querySelector("#btnEliminarDatos").style.display = "none";
+    }
   }
   cambiarSeccion("datos")
 }
@@ -191,9 +222,17 @@ function cargarDatos(cedula) {
 document.querySelector("#btnConsultaCensos").addEventListener("click", consultarCensos);
 
 function consultarCensos() {
-  let cedula = document.querySelector("#txtCedula").value;
-  cargarDatos(cedula)
-  cambiarSeccion("datos")
+  let cedula = stringifyCedula(document.querySelector("#txtCedula").value);
+  if (!validarCamposCompletados(cedula)) {
+    document.querySelector("#pCedula").innerHTML = "Debe completar todos los campos";
+  } else {
+    if (!verificacionDeCI(cedula)) {
+      document.querySelector("#pCedula").innerHTML = "Debe ingresar una cedula valida";
+    } else {
+      cargarDatos(cedula)
+      cambiarSeccion("datos")
+    }
+  }
 }
 
 
@@ -249,13 +288,7 @@ function registrarCensista() {
 
 //funcion para acumular los datos de una nueva persona
 
-document
-  .querySelector("#btnIngresarDatos")
-  .addEventListener("click", ingresarDatosPersona);
-
-function ingresarDatosPersona() {
-  let parrafo = document.querySelector("#pAuxDatos");
-  parrafo.innerHTML = "";
+function tomarDatosCenso() {
   let cedula = document.querySelector("#txtCedulaCenso").value;
   let nuevaCedula = stringifyCedula(cedula);
   let nombre = document.querySelector("#txtNombre").value;
@@ -264,46 +297,81 @@ function ingresarDatosPersona() {
   let departamento = document.querySelector("#slcDepartamento").value;
   let ocupacion = document.querySelector("#slcOcupacion").value;
 
+  return {
+    cedula: nuevaCedula,
+    nombre: nombre,
+    apellido: apellido,
+    edad: edad,
+    departamento: departamento,
+    ocupacion: ocupacion
+  }
+}
+
+function tomarCensoExistente(cedula) {
+  let censo = false
+  for (let i = 0; i < sistema.censos.length; i++) {
+    if (sistema.censos[i].cedula === cedula) {
+      return censo = sistema.censos[i]
+    }
+  }
+  return censo;
+}
+
+document
+  .querySelector("#btnIngresarDatos")
+  .addEventListener("click", ingresarDatosPersona);
+
+function ingresarDatosPersona() {
+  let parrafo = document.querySelector("#pAuxDatos");
+  parrafo.innerHTML = "";
+  let datos = tomarDatosCenso()
+
   if (!validarCamposCompletados(
-      nuevaCedula,
-      nombre,
-      apellido,
-      edad,
-      departamento,
-      ocupacion
+      datos.cedula,
+      datos.nombre,
+      datos.apellido,
+      datos.edad,
+      datos.departamento,
+      datos.ocupacion
     )) {
-    document.querySelector("#pAuxDatos").innerHTML = "Debe completar todos los campos";
+    parrafo.innerHTML = "Debe completar todos los campos";
     return;
   }
-  if (!verificarEdad(edad)) {
-    document.querySelector("#pAuxDatos").innerHTML = "Edad invalida. (No puede ser menor que 0 ni mayor que 130";
+  if (!verificarEdad(datos.edad)) {
+    parrafo.innerHTML = "Edad invalida. (No puede ser menor que 0 ni mayor que 130";
     return;
   }
 
-  let censoExiste = false
-  let censoExistente
+  let censoExistente = false
   for (let i = 0; i < sistema.censos.length; i++) {
     let censo = sistema.censos[i]
-    if (nuevaCedula === censo.cedula) {
-      censoExiste = true
+    if (datos.cedula === censo.cedula) {
       censoExistente = censo
     }
   }
-  console.log(censoExistente);
-  console.log(censoExiste);
-  if (!censoExiste) {
-    let censo = new Censo(nuevaCedula, nombre, apellido, edad, departamento, ocupacion)
+  if (!censoExistente) {
+    let censo = new Censo(datos.cedula, datos.nombre, datos.apellido, datos.edad, datos.departamento, datos.ocupacion)
     sistema.guardarCenso(censo)
     parrafo.innerHTML = "Se han ingresado los datos del censo correctamente"
+    if (login.idCensista !== -1) {
+      let toValidate = tomarCensoExistente(datos.cedula)
+      toValidate.verificado = true
+      toValidate.censista = login.idCensista
+    }
   } else {
-    censoExistente.nombre = nombre
-    censoExistente.apellido = apellido
-    censoExistente.edad = edad
-    censoExistente.departamento = departamento
-    censoExistente.ocupacion = ocupacion
+    censoExistente.nombre = datos.nombre
+    censoExistente.apellido = datos.apellido
+    censoExistente.edad = datos.edad
+    censoExistente.departamento = datos.departamento
+    censoExistente.ocupacion = datos.ocupacion
+    if (login.idCensista !== -1) {
+      let toValidate = tomarCensoExistente(datos.cedula)
+      toValidate.verificado = true
+      toValidate.censista = login.idCensistas
+    }
     parrafo.innerHTML = "Se han modificado los datos del censo correctamente"
-
   }
+  cargarDatos(datos.cedula)
 }
 
 function stringifyCedula(cedula) {
@@ -321,11 +389,87 @@ function verificarEdad(edad) {
   return (Number(edad) > 0 && Number(edad) < 130);
 }
 
+// LÓGICA ELIMINAR CENSO
+document.querySelector("#btnEliminarDatos").addEventListener("click", eliminarCenso);
+
+function eliminarCenso() {
+  let datos = tomarDatosCenso()
+  let censo = tomarCensoExistente(datos.cedula)
+  if (!censo.verificado) {
+    sistema.borrarCenso(datos.cedula)
+    document.querySelector("#pAuxDatos").innerHTML = "Se ha eliminado el censo del sistema"
+    limpiarCampos()
+  }
+
+}
 
 //info estadistica
+document.querySelector("#btnVisualizarEstadisticas").addEventListener("click", visualizarInfoEstadistica);
+
 function visualizarInfoEstadistica() {
+  recorrerCensos()
+  let totalCensados = personasCensadas()
+  if (login.idCensista === -1) {
+    document.querySelector("#visualizarEstadisticas").innerHTML = `
+    <h3> Listado de censados </h3>
+    <span> Total personas censadas: ${totalCensados} </span>
+    <table>
+            <thead>
+              <tr>
+                <th>Departamento</th>
+                <th>Estudian</th>
+                <th>No trabajan</th>
+                <th>Dependientes o independientes</th>
+                <th>% total de censados</th>
+              </tr>
+            </thead>
+            <tbody id="estadisticasPublicas">
+            </tbody>
+          </table>
+    `;
+    for (let i = 0; i < sistema.departamentos.length; i++) {
+      let departamento = sistema.departamentos[i]
+      if (departamento.censados > 0) {
 
+        document.querySelector("#estadisticasPublicas").innerHTML += `
+        <tr>
+        <td>${departamento.nombre}</td>
+        <td>${departamento.estudiantes}</td>
+        <td> ${departamento.noTrabajan} </td>
+        <td> ${(departamento.dependientes)+(departamento.independientes)} </td>
+        <td> ${Math.floor((departamento.censados*100)/totalCensados)} </td>
+        `
+      }
+    }
+  }
+}
 
+function recorrerCensos() {
+  for (let i = 0; i < sistema.censos.length; i++) {
+    let censo = sistema.censos[i]
+    for (let f = 0; f < sistema.departamentos.length; f++) {
+      let departamento = sistema.departamentos[f]
+      if (censo.departamento === departamento.codigo) {
+        ++departamento.censados
+        switch (censo.ocupacion) {
+          case "dep":
+            ++departamento.dependientes
+            break;
+          case "ind":
+            ++departamento.independientes;
+            break;
+          case "est":
+            ++departamento.estudiantes;
+            break;
+          case "des":
+            ++departamento.noTrabajan;
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
 }
 
 
@@ -376,11 +520,30 @@ function limpiarCampos() {
   document.querySelector("#txtNombreRegistro").value = "";
   document.querySelector("#txtUsuario").value = "";
   document.querySelector("#txtCedula").value = "";
+  document.querySelector("#txtCedulaCenso").value = "";
   document.querySelector("#txtNombre").value = "";
   document.querySelector("#txtApellido").value = "";
   document.querySelector("#txtEdad").value = "";
   document.querySelector("#slcDepartamento").value = "";
   document.querySelector("#slcOcupacion").value = "";
+}
+
+function bloquearCampos() {
+  document.querySelector("#txtCedulaCenso").setAttribute("disabled", "disabled");
+  document.querySelector("#txtNombre").setAttribute("disabled", "disabled");
+  document.querySelector("#txtApellido").setAttribute("disabled", "disabled");
+  document.querySelector("#txtEdad").setAttribute("disabled", "disabled");
+  document.querySelector("#slcDepartamento").setAttribute("disabled", "disabled");
+  document.querySelector("#slcOcupacion").setAttribute("disabled", "disabled");
+}
+
+function desbloquearCampos() {
+  document.querySelector("#txtCedulaCenso").removeAttribute("disabled");
+  document.querySelector("#txtNombre").removeAttribute("disabled");
+  document.querySelector("#txtApellido").removeAttribute("disabled");
+  document.querySelector("#txtEdad").removeAttribute("disabled");
+  document.querySelector("#slcDepartamento").removeAttribute("disabled");
+  document.querySelector("#slcOcupacion").removeAttribute("disabled");
 }
 
 function mostrarMensaje(mensaje) {
@@ -431,9 +594,9 @@ function cambiarSeccion(nuevaSeccion) {
   document.querySelector("#" + nuevaSeccion).style.display = "block";
 }
 ocultarSecciones(); // Oculta todas las secciones al inicio
-cambiarSeccion("ingreso");
-// mostrarBotones("inicio") HABILITAR ESTA LLAMADA PARA OCULTAR BOTONES AL INICIO
+cambiarSeccion("inicio");
+//mostrarBotones("inicio") / / HABILITAR ESTA LLAMADA PARA OCULTAR BOTONES AL INICIO
 
-
+sistema.verificarCensos()
 
 //------------------------------------

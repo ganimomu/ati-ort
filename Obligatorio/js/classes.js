@@ -5,7 +5,11 @@ class Departamento {
   constructor(nombre, codigo) {
     this.nombre = nombre;
     this.codigo = codigo;
-    this.censados = 0
+    this.censados = 0;
+    this.estudiantes = 0;
+    this.dependientes = 0;
+    this.independientes = 0;
+    this.noTrabajan = 0;
   }
 }
 class Censista {
@@ -22,7 +26,7 @@ class Censo {
     this.cedula = cedula;
     this.nombre = nombre;
     this.apellido = apellido;
-    this.edad = edad;
+    this.edad = Number(edad);
     this.departamento = departamento;
     this.ocupacion = ocupacion;
     this.censista = -1;
@@ -32,7 +36,7 @@ class Censo {
 
 class Sistema {
   constructor() {
-    this.censos = [new Censo("51474238", "Gabriel", "Moreno", 21, "S", "dep", false)];
+    this.censos = [new Censo("51474238", "Gabriel", "Moreno", 21, "S", "dep", false), new Censo("11111111", "Lucas", "Alfaro", 21, "C", "des"), new Censo("22222222", "Pablo", "Moreno", 52, "A", "est")];
     this.censistas = [new Censista("ganimomu", "Gabriel", "1Abc2"), new Censista("nmsa545", "Gabriel", "1Abc2")];
     this.departamentos = [
       new Departamento("Artigas", "G"),
@@ -61,5 +65,19 @@ class Sistema {
   }
   registrarCensista(registro) {
     this.censistas.push(registro);
+  }
+  verificarCensos() {
+    this.censos[1].verificado = true
+    this.censos[1].censista = 0
+
+  }
+  borrarCenso(cedula) {
+    for (let i = 0; i < this.censos.length; i++) {
+      let censo = this.censos[i]
+      if (cedula === censo.cedula) {
+        this.censos.splice(censo, 1)
+        break
+      }
+    }
   }
 }

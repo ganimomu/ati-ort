@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap");
 
 .clearfix:after {
   visibility: hidden;
@@ -27,47 +27,50 @@
 /* close commented backslash hack */
 
 body {
-  font-family: 'Roboto Flex', sans-serif;
-  background-color: #48B9A9;
-} 
+  font-family: "Roboto Flex", sans-serif;
+  background-color: #48b9a9;
+}
 
 h1,
 h2,
 h3,
 h5,
 h6 {
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: "Roboto Flex", sans-serif;
 }
 
-h2{
-  width:60%;
-  float:left;
+h2 {
+  width: 60%;
+  float: left;
 }
 
-h4{
-  float:right;
-  font-weight:400;
-  width:30%;
-  margin-top:26px;
-  text-align:right;
+h4 {
+  float: right;
+  font-weight: 400;
+  width: 30%;
+  margin-top: 26px;
+  text-align: right;
 }
 
-table, th, td{
-  border-collapse:collapse;
+table,
+th,
+td {
+  border-collapse: collapse;
   border: #000 1px solid;
-  padding:5px;
-  background-color:#fff;
+  padding: 5px;
+  background-color: #fff;
 }
 
-table img, td>input[type=button]{
-  width:100px;
-  min-width:50px;
+table img,
+td > input[type="button"] {
+  width: 100px;
+  min-width: 50px;
 }
 
-th{
-  background-color:#303036;
-  color:#fff;
-  font-weight:normal;
+th {
+  background-color: #303036;
+  color: #fff;
+  font-weight: normal;
 }
 
 #aux a {
@@ -76,30 +79,30 @@ th{
 
 #contenedor {
   width: 800px;
-  background-color: #6C66AC;
+  background-color: #6c66ac;
   margin: 0 auto;
 }
 
-label{
+label {
   min-width: 80px;
-  text-align:left;
-  display:inline-block;
-  vertical-align:top;
+  text-align: left;
+  display: inline-block;
+  vertical-align: top;
 }
 
-.duracion{
-  float:right;
+.duracion {
+  float: right;
 }
 
-textarea{
-  min-height:80px;
+textarea {
+  min-height: 80px;
 }
 
 p.ver-mas {
-    text-align: center;
-    cursor: pointer;
-    font-weight: 700;
-    color: #FC5130;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 700;
+  color: #fc5130;
 }
 
 #logo {
@@ -116,16 +119,16 @@ p.ver-mas {
 }
 
 #navPrincipal a {
-  color: #FFFAFF;
+  color: #fffaff;
   cursor: pointer;
   color: #fff;
   font-size: 14px;
 }
 
 #aux a {
-  text-decoration: underline;
-  cursor: pointer;
-  color: #FFFAFF;
+  text-decoration: none;
+  cursor: default;
+  color: #fffaff;
   font-size: 14px;
 }
 
@@ -137,10 +140,10 @@ p.ver-mas {
 }
 
 #navPrincipal li {
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: "Roboto Flex", sans-serif;
   list-style-type: none;
   padding: 10px;
-  border-bottom: 2px solid #FFFAFF;
+  border-bottom: 2px solid #fffaff;
   margin: 5px;
   float: left;
 }
@@ -149,7 +152,6 @@ p.ver-mas {
   background-color: #303036;
 }
 
-
 #contenido {
   /*background-color: #DFDFDF;*/
   /*width: 590px;*/
@@ -157,8 +159,8 @@ p.ver-mas {
   float: left;
 }
 
-#contenido img{
-  max-width:100%;
+#contenido img {
+  max-width: 100%;
   margin-bottom: 1%;
 }
 
@@ -183,15 +185,16 @@ p.ver-mas {
 }
 
 input,
-select, textarea {
+select,
+textarea {
   background-color: #303036;
-  color: #FFFAFF;
+  color: #fffaff;
   border: 1px solid #ccc;
   padding: 5px 10px;
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: "Roboto Flex", sans-serif;
   min-width: 200px;
   border-radius: 5px;
-  font-size:14px;
+  font-size: 14px;
 }
 
 input[type="button"] {
@@ -199,9 +202,9 @@ input[type="button"] {
   color: #fff;
 }
 input[type="radio"] {
-    background-color: #303036;
-    color: #fff;
-  }
+  background-color: #303036;
+  color: #fff;
+}
 
 #pie a {
   text-decoration: none;
@@ -210,4 +213,26 @@ input[type="radio"] {
 
 input[type="button"]:disabled {
   background-color: #9696a1;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  /* top: -5px;
+  left: 105%; */
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }

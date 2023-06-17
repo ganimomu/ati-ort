@@ -11,10 +11,16 @@
   <body>
     <div id="contenedor">
       <div id="cabezal" class="clearfix">
-        <img
-          id="logo"
-          src="https://p1.develotion.com/2023_03/logo.jpg"
-          alt="logo" />
+        <!-- Tocar el logo re-inicia la aplicación de momento -->
+        <a href="index.html" class="tooltip">
+          <img
+            id="logo"
+            src="https://p1.develotion.com/2023_03/logo.jpg"
+            alt="logo" />
+          <span class="tooltiptext"
+            >Tocar el logo re-inicia la aplicación de momento</span
+          >
+        </a>
         <ul id="navPrincipal">
           <li id="btnIngreso" class="btn inicio">
             <a>Ingreso</a>
@@ -22,24 +28,17 @@
           <li id="btnRegistro" class="btn inicio">
             <a>Registro</a>
           </li>
-          <li id="btnConsultarCensos" class="btn">
-            <a>Consultar censos pre-completados</a>
+          <li id="btnConsultarCensos" class="btn censista">
+            <a>Consulta de censo</a>
           </li>
           <li id="btnReasignar" class="btn censista">
             <a>Re-asignar persona a validar</a>
           </li>
-          <li id="btnDatos" class="btn censista invitado">
+          <li id="btnDatos" class="btn censista">
             <a>Inicio censo</a>
           </li>
-          <li
-            id="btnVisualizarEstadisticasCensista"
-            class="btn censista invitado">
-            <a>Visualizar estadísticas (censista)</a>
-          </li>
-          <li
-            id="btnVisualizarEstadisticasInvitado"
-            class="btn censista invitado">
-            <a>Visualizar estadísticas (invitado)</a>
+          <li id="btnVisualizarEstadisticas" class="btn censista invitado">
+            <a>Visualizar estadísticas</a>
           </li>
         </ul>
         <div id="aux">
@@ -49,7 +48,12 @@
         <!-- FIN AUX -->
       </div>
       <!-- FIN CABEZAL -->
-      <div id="divContenido">
+      <div id="contenido">
+        <div id="inicio" class="seccion">
+          <div>
+            <img src="https://p1.develotion.com/2023_03/foto1.webp" />
+          </div>
+        </div>
         <!-- INICIO SECCION INGRESO -->
         <div id="ingreso" class="seccion">
           <h3>Bienvenidos al Censo 2023</h3>
@@ -103,12 +107,15 @@
           <h3>Inicializar censo</h3>
           <label for="txtCedulaPre">Ingresar cédula:</label>
           <input type="text" id="txtCedulaPre" /><br />
+          <p id="pConsultaCensos"></p>
           <input type="button" id="btnIniciarCenso" value="Iniciar censo" />
         </div>
         <!-- FIN SECCION INICIAR CENSO -->
 
         <!-- INICIO SECCION DATOS CENSO -->
         <div id="datos" class="seccion">
+          <h3>Ingresar datos para el censo</h3>
+          <p></p>
           <label for="txtCedulaCenso">Ingresar cédula:</label>
           <input type="text" id="txtCedulaCenso" /><br />
           <label for="txtNombre">Ingresar nombre:</label>
@@ -138,9 +145,16 @@
 
         <!-- INICIO SECCION CONSULTAR CENSOS -->
         <div id="consultarCensos" class="seccion">
-          <h3>Consultar censos pre-cargados</h3>
-          <label for="txtCedula">Ingresar cedula de la persona:</label>
+          <h3>Consultar censos</h3>
+          <p
+            >Ingrese la cédula de la persona a localizar. Si la persona ya
+            completo el censo previamente, podrá ver los datos ingresados por la
+            persona y modificarlos en caso de ser necesario<br />En caso de que
+            la cédula no fuese encontrada, iniciará un nuevo censo.</p
+          >
+          <label for="txtCedula">Ingresar cedula:</label>
           <input type="text" id="txtCedula" />
+          <p id="pCedula"></p>
           <input type="button" id="btnConsultaCensos" value="Consultar" />
         </div>
         <!-- FIN SECCION CONSULTAR CENSOS -->
@@ -152,11 +166,15 @@
             >Personas pendientes por validar datos</label
           >
           <select id="slcPersonasPendientes">
-            <option value="x">xx</option> </select
+            <option value="select" selected disabled
+              >Seleccionar...</option
+            > </select
           ><br />
           <label for="slcCensista">Censista a asignar:</label>
           <select id="slcCensista">
-            <option value="x">xx</option> </select
+            <option value="select" selected disabled
+              >Seleccionar...</option
+            > </select
           ><br />
           <input
             type="button"
@@ -166,7 +184,7 @@
         <!-- FIN SECCION REASIGNAR CENSADO -->
 
         <!-- INICIO SECCION VISUALIZAR ESTAIDISTICAS -->
-        <div id="visualizarEstadisticasCensista" class="seccion">
+        <div id="visualizarEstadisticas" class="seccion">
           <h3></h3>
           <table>
             <thead>
