@@ -36,9 +36,6 @@
           <li id="btnReasignar" class="btn censista">
             <a>Re-asignar persona a validar</a>
           </li>
-          <li id="btnDatos" class="btn censista">
-            <a>Inicio censo</a>
-          </li>
           <li id="btnVisualizarEstadisticas" class="btn censista invitado">
             <a>Visualizar estadísticas</a>
           </li>
@@ -148,15 +145,18 @@
           <input type="button" id="btnEliminarDatos" value="Eliminar censo" />
         </div>
         <!-- FIN SECCION DATOS CENSO -->
+        <div id="postCenso" class="seccion"> </div>
 
         <!-- INICIO SECCION CONSULTAR CENSOS -->
         <div id="consultarCensos" class="seccion">
           <h3>Consultar censos</h3>
           <p
-            >Ingrese la cédula de la persona a localizar. Si la persona ya
-            completo el censo previamente, podrá ver los datos ingresados por la
-            persona y modificarlos en caso de ser necesario<br />En caso de que
-            la cédula no fuese encontrada, iniciará un nuevo censo.</p
+            >Ingrese la cédula de la persona a localizar o elija una de las que
+            tiene pendiente por verificar.<br />
+            Si la persona ya completo el censo previamente, podrá ver los datos
+            ingresados por la persona y modificarlos en caso de ser necesario<br />En
+            caso de que la cédula no fuese encontrada, iniciará un nuevo
+            censo.</p
           >
           <label for="txtCedula">Ingresar cedula:</label>
           <input type="text" id="txtCedula" />
@@ -172,16 +172,15 @@
             >Personas pendientes por validar datos</label
           >
           <select id="slcPersonasPendientes">
-            <option value="select" selected disabled
-              >Seleccionar...</option
-            > </select
-          ><br />
+            <option value="select" selected disabled>Seleccionar...</option>
+          </select>
+          <br />
           <label for="slcCensista">Censista a asignar:</label>
           <select id="slcCensista">
-            <option value="select" selected disabled
-              >Seleccionar...</option
-            > </select
-          ><br />
+            <option value="select" selected disabled>Seleccionar...</option>
+          </select>
+          <br />
+          <p id="pReasignacion"></p>
           <input
             type="button"
             id="btnReasignacion"
@@ -216,38 +215,13 @@
           <br />
         </div>
         <!-- FIN SECCION VISUALIZAR ESTADISTICAS -->
-
-        <!-- INICIO SECCION ESTADISTICAS INVITADO -->
-        <div id="visualizarEstadisticasInvitado" class="seccion">
-          <h3>Lista de censados</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Departamento</th>
-                <th>Estudian</th>
-                <th>No trabajan</th>
-                <th>Dependientes o independientes</th>
-                <th>% total de censados</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Montevideo</td>
-                <td>23</td>
-                <td>35</td>
-                <td>65</td>
-                <td>65</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- FIN SECCION ESTADISTICAS INVITADO -->
-
         <!--FIN ELEMENTOS-->
       </div>
       <!-- FIN CONTENIDO -->
       <div id="pie">
-        <a href="https://www.ort.edu.uy">Footer</a>
+        <a href="https://www.ort.edu.uy"
+          >Universidad ORT Uruguay - Gabriel Moreno | Franco Notte</a
+        >
       </div>
       <!-- FIN PIE -->
     </div>
