@@ -12,7 +12,8 @@ function cargarDepartamentos() {
 }
 cargarDepartamentos();
 
-function reloadLogin() {
+
+function reloadLogin() { //esto aun no funciona
   if (login.tipo === "censista") {
     mostrarBotones("censista")
   } else {
@@ -31,7 +32,7 @@ function verificarLogin(username, password) {
       }
     }
   }
-  return usuario
+  return usuario //porque retona 2 veces usuario?
 }
 
 /* 
@@ -44,15 +45,15 @@ document.querySelector("#btnLogin").addEventListener("click", ingresoSistema);
 
 function ingresoSistema() {
   let tipoUsuario = document.querySelector("#slcUser").value
-  let username = document.querySelector("#txtUsuario").value.toLowerCase();
-  let password = document.querySelector("#txtPassword").value;
+  let usuario = document.querySelector("#txtUsuario").value.toLowerCase();
+  let contrasenia = document.querySelector("#txtPassword").value;
 
 
   if (tipoUsuario === "u") {
     document.querySelector("#txtCedulaCenso").removeAttribute("disabled");
-    if (validarCamposCompletados(username, password)) {
+    if (validarCamposCompletados(usuario, contrasenia)) {
 
-      let loginValidado = verificarLogin(username, password)
+      let loginValidado = verificarLogin(usuario, contrasenia)
       if (!loginValidado) {
         document.querySelector("#pMsj").innerHTML = "El nombre de usuario o la contraseña ingresada son incorrectas";
 
@@ -68,7 +69,7 @@ function ingresoSistema() {
       document.querySelector("#pMsj").innerHTML = "Debe completar todos los campos";
     }
   } else if (tipoUsuario === "i") {
-    cedula = stringifyCedula(username)
+    cedula = stringifyCedula(usuario)
     if (validarCamposCompletados(cedula)) {
 
       if (verificacionDeCI(cedula)) {
@@ -82,7 +83,6 @@ function ingresoSistema() {
         for (let i = 0; i < sistema.censos.length; i++) {
           let censados = sistema.censos[i]
           if (cedula === censados.cedula) {
-            document.querySelector("#pMsj").innerHTML = "Cedula encontrada";
             login.censado = true
           }
           document.querySelector("#txtCedulaCenso").setAttribute("disabled", "disabled");
@@ -104,8 +104,8 @@ function ingresoSistema() {
 
   }
   tipoUsuario.innerHTML = ""
-  password.innerHTML = ""
-  username.innerHTML = ""
+  contrasenia.innerHTML = ""
+  usuario.innerHTML = ""
 }
 
 function mostrarIngreso() {
@@ -173,7 +173,6 @@ function censoByCensista() {
 
 function cargarDatos(cedula) {
   desbloquearCampos();
-  document.querySelector("#pAuxDatos").innerHTML = "";
   let stringCedula = stringifyCedula(cedula)
   limpiarCampos()
   let censoEncontrado = null;
@@ -203,7 +202,6 @@ function cargarDatos(cedula) {
     document.querySelector("#pMsj").innerHTML =
       "No se ha encontrado censo pre-cargado para la cédula ingresada";
   } else {
-    document.querySelector("#pMsj").innerHTML = "Censo encontrado";
     document.querySelector("#txtCedulaCenso").setAttribute("disabled", "disabled");
     if (censoEncontrado.verificado) {
       bloquearCampos()
@@ -552,9 +550,9 @@ function mostrarMensaje(mensaje) {
 
 //---------------------------------------------------------------------------
 
-function ocultarSecciones() {
+function ocultarSecciones() { //oculta todas las secciones al inicio de la aplicacion, que el la pagina prinicipal aparezca solo la foto
   let secciones = document.querySelectorAll(".seccion"); //.seccion hablo del atributo class
-  for (let i = 0; i < secciones.length; i++) {
+  for (let i = 0; i < secciones.length; i++) { // recorre cada elemento de la lista utilizando un bucle for, y para cada elemento, establece su propiedad style.display a "none". Esto hace que las secciones se oculten en la página, ya que "none" es un valor que indica que el elemento no se muestra.
     //secciones va a ser un array de elementos html
     const seccion = secciones[i];
     seccion.style.display = "none";

@@ -1,6 +1,7 @@
 // Libreria armada en función a los códigos trabajados en el momento.
 // Códigos en ejercicios son primeras versiones de los presentes en la libreria
-function charReplacer(string, char, replacingChar = "") {
+
+/* function charReplacer(string, char, replacingChar = "") {
   let newString = "";
   for (let index = 0; index < string.length; index++) {
     if (string.toLowerCase().charAt(index) === char.toLowerCase()) {
@@ -37,7 +38,7 @@ function wordCounter(string) {
     }
   }
   return contador;
-}
+}*/
 
 function verificarFormatoContrasena(contra) {
   let minuscula = false;
@@ -62,7 +63,20 @@ function verificarFormatoContrasena(contra) {
   return minuscula && mayuscula && numero;
 }
 
-function validarCamposCompletados(...campo) {
+
+function validarCamposCompletados(...campos) {
+  for (let i = 0; i < campos.length; i++) {
+    if (campos[i] === "") {
+      return false;
+    }
+  }
+  return true;
+}
+
+
+
+
+/*function validarCamposCompletados(...campo) { 
   let toValidate = [...campo] // [nombreUsuario, nombre, contraseña]
   let check = true
   for (let i = 0; i < toValidate.length; i++) {
@@ -73,4 +87,4 @@ function validarCamposCompletados(...campo) {
     }
   }
   return check
-}
+}*/

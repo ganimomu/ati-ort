@@ -36,7 +36,7 @@ class Censo {
 
 class Sistema {
   constructor() {
-    this.censos = [new Censo("51474238", "Gabriel", "Moreno", 21, "S", "dep", false), new Censo("11111111", "Lucas", "Alfaro", 21, "C", "des"), new Censo("22222222", "Pablo", "Moreno", 52, "A", "est")];
+    this.censos = [new Censo("51474238", "Gabriel", "Moreno", 21, "S", "dep", false), new Censo("11111111", "Lucas", "Alfaro", 21, "C", "des"), new Censo("22222222", "Pablo", "Moreno", 52, "A", "est"), new Censo("52985167", "Franco", "Notte", 20, "S", "est")];
     this.censistas = [new Censista("ganimomu", "Gabriel", "1Abc2"), new Censista("nmsa545", "Gabriel", "1Abc2")];
     this.departamentos = [
       new Departamento("Artigas", "G"),
