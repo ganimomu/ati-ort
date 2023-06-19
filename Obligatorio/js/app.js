@@ -63,9 +63,7 @@ function ingresoSistema() {
         document.querySelector("#pMsj").innerHTML = "Ingreso correctamente al sistema";
         cambiarSeccion("iniciarCenso")
       }
-
     } else {
-
       document.querySelector("#pMsj").innerHTML = "Debe completar todos los campos";
     }
   } else if (tipoUsuario === "i") {

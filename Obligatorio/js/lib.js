@@ -1,7 +1,7 @@
 // Libreria armada en función a los códigos trabajados en el momento.
 // Códigos en ejercicios son primeras versiones de los presentes en la libreria
 
-/* function charReplacer(string, char, replacingChar = "") {
+function charReplacer(string, char, replacingChar = "") {
   let newString = "";
   for (let index = 0; index < string.length; index++) {
     if (string.toLowerCase().charAt(index) === char.toLowerCase()) {
@@ -38,7 +38,7 @@ function wordCounter(string) {
     }
   }
   return contador;
-}*/
+}
 
 function verificarFormatoContrasena(contra) {
   let minuscula = false;
