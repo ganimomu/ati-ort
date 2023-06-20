@@ -23,21 +23,19 @@ function charCounter(string, char) {
   return contador;
 }
 
-function wordCounter(string) {
-  let contador = 0;
-  if (string && string !== " ") {
-    ++contador;
+function verificacionDeCI(cedula) {
+  let CI = cedula
+  if (CI.length === 7) {
+    CI = "0" + CI;
   }
-  for (i = 0; i < string.length; i++) {
-    if (
-      string.charAt(i) === " " &&
-      string.charAt(i + 1) !== "" &&
-      string.charAt(i + 1) !== " "
-    ) {
-      contador++;
-    }
+  let codigo = "2987634";
+  let acumulador = 0;
+  let digitoVerificar = CI.charAt(CI.length - 1);
+  for (let i = 0; i < CI.length - 1; i++) {
+    acumulador += Number(CI.charAt(i)) * Number(codigo.charAt(i))
   }
-  return contador;
+  let digitoVerificador = (10 - (acumulador % 10)) % 10;
+  return Number(digitoVerificar) === digitoVerificador
 }
 
 function verificarFormatoContrasena(contra) {
@@ -112,11 +110,6 @@ function validarCamposCompletados(...campos) { //funcion que recibe como paramet
 }
 
 
-
-function usuarioVerificado() {
-  //buscar la cedula
-  //si la cedula fue verificada cambiar el verificado a true
-}
 
 function limpiarCampos() {
   document.querySelector("#txtPassword").value = "";

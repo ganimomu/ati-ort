@@ -59,6 +59,17 @@
         <div id="ingreso" class="seccion">
           <h3>Bienvenidos al Censo 2023</h3>
           <h3>Ingreso</h3>
+          <p
+            >Si desea pre-registrar sus datos para agilizar el trabajo de los
+            censistas, puede seleccionar la opción de
+            <strong>Invitado</strong> e ingresar su cédula para dar inicio al
+            censo.</p
+          >
+          <p
+            >Para el ingreso de censista, elija la opción
+            <strong>Censista</strong> e ingrese sus datos para iniciar
+            sesión.</p
+          >
           <select name="slcUser" id="slcUser">
             <!--El select contiene 3 opciones-->
             <option value="selected" selected disabled>Seleccionar...</option>
@@ -158,8 +169,14 @@
             caso de que la cédula no fuese encontrada, iniciará un nuevo
             censo.</p
           >
+          <label for="slcPendiente">Censos asignados por validar:</label>
+          <select name="slcPendiente" id="slcPendiente">
+            <option value="select" selected disabled
+              >Seleccionar...</option
+            > </select
+          ><br />
           <label for="txtCedula">Ingresar cedula:</label>
-          <input type="text" id="txtCedula" />
+          <input type="number" id="txtCedula" />
           <p id="pCedula"></p>
           <input type="button" id="btnConsultaCensos" value="Consultar" />
         </div>
