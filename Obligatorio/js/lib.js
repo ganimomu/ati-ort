@@ -3,11 +3,11 @@
 
 function charReplacer(string, char, replacingChar = "") {
   let newString = "";
-  for (let index = 0; index < string.length; index++) {
-    if (string.toLowerCase().charAt(index) === char.toLowerCase()) {
+  for (let i = 0; i < string.length; i++) {
+    if (string.toLowerCase().charAt(i) === char.toLowerCase()) {
       newString += replacingChar;
     } else {
-      newString += string.charAt(index);
+      newString += string.charAt(i);
     }
   }
   return newString;
@@ -15,8 +15,8 @@ function charReplacer(string, char, replacingChar = "") {
 
 function charCounter(string, char) {
   let contador = 0;
-  for (let index = 0; index < string.length; index++) {
-    if (string.charAt(index) === char) {
+  for (let i = 0; i < string.length; i++) {
+    if (string.charAt(i) === char) {
       ++contador;
     }
   }
