@@ -416,7 +416,16 @@ function eliminarCenso() {
   desbloquearCampos()
 }
 
-// LÓGICA REASIGNAR CENSISTA
+/** LÓGICA REASIGNAR CENSISTA
+ * Lógica encargada de permitir a un censista no solo revisar los censos que tiene pendientes por validar si no que también a que censista le puede asignar uno de sus censos. Maneja manipulación de datos directamente en el Array que contiene los Censos y manipula el documento HTML en sección #reasignar
+ * 
+ * #btnReasignar escucha eventos de click para llamar a la función leerDatosReasignacion()
+ * #btnReasignacion escucha eventos de click para llamar a función reasignarCensista()
+ * 
+ * leerDatosReasignacion(): Toma parte del documento HTML; Recorre Array de Censos y Censista y manipula la sección correspondiente en el HTML para cargar Censos no validados asignados al usuario loggeado y Censistas disponibles excluyendo al loggeado.
+ * 
+ * reasignarCensista(): Toma el valor de los datos en el select cargado con la función anterior y modifica en el Array de Censos, al censo correspondiente al primer valor, para asignar en la propiedad ``idCensistas`` el id del Censista correspondiente al segundo valor obtenido. 
+ */
 document.querySelector("#btnReasignar").addEventListener("click", leerDatosReasignacion)
 
 function leerDatosReasignacion() {
@@ -455,7 +464,15 @@ function reasignarCensista() {
 
 }
 
-//info estadistica
+/** LÓGICA DE ESTADISTICAS
+ * visualizarInfoEstadistica(): Se encarga de generar en el documento HTML la información estadistica del Censo global con respecto a la base de datos.
+ * Esta función tiene en cuenta el login del usuario (Invitado o Censista) y genera el documento con la información adecuada para mostrarle al usuario en cuestion
+ * Invoca a: reiniciarContadores(): medida Low-Cost y un poco ineficiente para que las tablas no aumenten valores indefinidamente
+ *
+ * Invoca a: recorrerCensos(): ajusta los contadores para mostrar las estadisticas precisas. 
+ * 
+ * Genera parte del documento HTML desde cero para la sección #visualizarEstadisticas
+ */
 document.querySelector("#btnVisualizarEstadisticas").addEventListener("click", visualizarInfoEstadistica);
 
 function visualizarInfoEstadistica() {
@@ -569,6 +586,9 @@ function visualizarInfoEstadistica() {
   }
 }
 
+/**
+ * recorrerCensos(): Cumple la exclusiva función de recorrer el Array respectivo a los censos en la base de datos y sumar según corresponda a las respectivas propiedades internas de los Deparmantos para después ser usado en la visualización de estadisticas
+ */
 function recorrerCensos() {
   for (let i = 0; i < sistema.censos.length; i++) {
     let censo = sistema.censos[i]
@@ -578,7 +598,6 @@ function recorrerCensos() {
         ++departamento.censados
         switch (censo.ocupacion) {
           case "dep":
-
             ++departamento.dependientes
             break;
           case "ind":
@@ -598,7 +617,12 @@ function recorrerCensos() {
   }
 }
 
-function asignarCensistaAleatorioOnStartup() {
+
+/** asignarCensistaAlCargar: Función que asigna aleatoriamente censistas a censos sin validar y sin un censista asignado
+ * 
+ * Esta función solo cumple su función para los censos pre-cargados ya que estos inicializan con idCensistas===-1.
+ */
+function asignarCensistaAlCargar() {
   for (let i = 0; i < sistema.censos.length; i++) {
     let censo = sistema.censos[i]
     if (censo.idCensistas === -1) {
@@ -606,16 +630,14 @@ function asignarCensistaAleatorioOnStartup() {
     }
   }
 }
-asignarCensistaAleatorioOnStartup()
+asignarCensistaAlCargar()
 
 function personasCensadas() {
   return sistema.censos.length;
 }
 
 function cantCensadosDept() {
-  sistema.censos[0].departamento
   for (let i = 0; i < sistema.censos.length; i++) {
-    sistema.censos[i].departamento
     for (let y = 0; y < sistema.departamentos.length; y++) {
       if (sistema.censos[i].departamento === sistema.departamentos[y].codigo) {
         sistema.departamentos[y].censados++
@@ -624,11 +646,6 @@ function cantCensadosDept() {
   }
 
 }
-
-function mostrarMensaje(mensaje) {
-  document.querySelector("#pMensaje").innerHTML = mensaje;
-}
-
 //---------------------------------------------------------------------------
 
 
