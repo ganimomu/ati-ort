@@ -23,13 +23,13 @@ class Censista {
 
 class Censo {
   constructor(cedula, nombre, apellido, edad, departamento, ocupacion) {
+    this.idCensistas = -1;
     this.cedula = cedula;
     this.nombre = nombre;
     this.apellido = apellido;
     this.edad = Number(edad);
     this.departamento = departamento;
     this.ocupacion = ocupacion;
-    this.idCensistas = -1;
     this.verificado = false;
   }
 }
@@ -109,7 +109,7 @@ class Sistema {
       censo.idCensistas = censista.idCensistas
       if (rng % 3 === 0) {
         censo.verificado = true
-        console.log(`Censo pre-verificado: ${censo.cedula}`)
+        //console.log(`Censo pre-verificado: ${censo.cedula}`)
       }
     }
 
