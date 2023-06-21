@@ -85,7 +85,7 @@ function tomarCensista(idCensista) {
   return censista
 }
 
-function stringifyCedula(cedula) {
+function stringifyCedula(cedula) { //La función stringifyCedula elimina cualquier carácter no numérico del usuario ingresado.
   let newCedula = ""; // Variable guardada como string así al sumar en la verificación arroja el string entero y no suma los números
   for (let i = 0; i < cedula.length; i++) {
     let digito = cedula.charAt(i);
@@ -100,7 +100,7 @@ function verificarEdad(edad) {
   return (Number(edad) > 0 && Number(edad) < 130);
 }
 
-function validarCamposCompletados(...campos) { //funcion que recibe como parametro diferentes parametros
+function validarCamposCompletados(...campos) { //La función validarCamposCompletados verifica si el campo de cédula está completo.
   for (let i = 0; i < campos.length; i++) { //recorre los parametros ingresados
     if (campos[i] === "") { //verifica si alguno de los campos ingresados esta vacio
       return false; //si alguno esta vacio retorna falso
