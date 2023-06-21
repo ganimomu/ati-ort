@@ -2,6 +2,15 @@ let sistema = new Sistema();
 let pAuxDatos = document.querySelector("#pAuxDatos");
 let login; // Variable que va guardar si el usuario que inicia sesión es censista o censado //login al ingresar pasa a ser un nuevo objeto
 
+document.querySelector("#logoff").addEventListener("click", logoff)
+
+function logoff() {
+  login = null
+  reloadLogin()
+  limpiarMensajes()
+}
+
+
 function cargarDepartamentos() {
   let datos = document.querySelector("#slcDepartamento");
   let grafico = document.querySelector("#slcEstadCensos");
@@ -17,11 +26,13 @@ cargarDepartamentos();
 function reloadLogin() { //funcion de prueba de mostrar secciones  
   if (login) {
     document.querySelector("#spanUsuario").innerHTML = `Ingreso como ${login.usuario}`;
-
+    document.querySelector("#logoff").innerHTML = "Cerrar sesión"
   }
   if (!login) {
     document.querySelector("#spanUsuario").innerHTML = ""
+    document.querySelector("#logoff").innerHTML = ""
     mostrarBotones("inicio")
+    cambiarSeccion("inicio")
   } else if (login.idCensistas >= 0) {
     mostrarBotones("censista")
   } else {
@@ -78,9 +89,7 @@ function ingresoSistema() {
   } else if (tipoUsuario === "i") {
     cedula = stringifyCedula(usuario)
     if (validarCamposCompletados(cedula)) {
-
       if (verificacionDeCI(cedula) && Number(cedula) !== 0) {
-
         login = {
           usuario: cedula,
           idCensistas: -1,
@@ -90,10 +99,10 @@ function ingresoSistema() {
           let censados = sistema.censos[i]
           if (cedula === censados.cedula) {
             login.censado = true
+            document.querySelector("#txtCedulaCenso").setAttribute("disabled", "disabled");
+            document.querySelector("#txtCedulaCenso").value = `${cedula}`;
+            break
           }
-          document.querySelector("#txtCedulaCenso").setAttribute("disabled", "disabled");
-          document.querySelector("#txtCedulaCenso").value = `${cedula}`;
-          break
         }
         cargarDatos(login.usuario)
         if (login.censado) {
@@ -121,14 +130,15 @@ function ingresoSistema() {
 
 function loginInvitado() {
   let pPostLogin = document.querySelector("#pPostIngreso");
+  let hPostLogin = document.querySelector("#hPostIngreso");
   let censo = tomarCensoExistente(login.usuario)
   let censista = tomarCensista(censo.idCensistas)
   if (!censo.verificado) {
-
-    document.querySelector("#hPostIngreso").innerHTML = `¡Bienvenido ${censo.nombre}!`
+    hPostLogin.innerHTML = `¡Bienvenido ${censo.nombre}!`
     pPostLogin.innerHTML = `Usted ya ha completado los datos del censo. Puede modificar los datos en caso de que quiera corregirlos o eliminar el censo completamente. <br>Recuerde que su censo todavía esta pendiente de validación y se ha asignado al censista <strong>${censista.nombre}</strong> para visitarlo y validar los datos que ha ingresado`
     document.querySelector("#btnPostIngreso").addEventListener("click", () => cambiarSeccion("datos"))
   } else {
+    hPostLogin.innerHTML = `¡Bienvenido ${censo.nombre}!`
     pPostLogin.innerHTML = `Su censo ya ha sido verificado por un censista. Agradecemos su cooperación.<br>
     Sus datos quedaron validados por lo que no pueden ser modificados. Mientras tanto puede visualizar las estadisticas del censo en curso usando el botón correspondiente en el encabezado de la página.
     <br><strong>¡Muchas gracias!</strong>`
@@ -171,6 +181,7 @@ function cargarDatos(cedula) {
   limpiarCampos()
   let censoEncontrado = null;
   document.querySelector("#btnIngresarDatos").value = "Registrar censo";
+  document.querySelector("#btnEliminarDatos").style.display = "none";
   document.querySelector("#btnIngresarDatos").style.display = "block";
   for (let i = 0; i < sistema.censos.length; i++) {
     let persona = sistema.censos[i];
@@ -178,6 +189,7 @@ function cargarDatos(cedula) {
     if (persona.cedula === stringCedula) {
       if (login.idCensistas === -1) {
         document.querySelector("#btnIngresarDatos").value = "Modificar censo";
+        document.querySelector("#btnEliminarDatos").style.display = "block";
       } else {
         document.querySelector("#btnIngresarDatos").value = "Validar censo";
       }
@@ -193,18 +205,13 @@ function cargarDatos(cedula) {
   }
   document.querySelector("#txtCedulaCenso").value = `${stringCedula}`;
 
-  if (!censoEncontrado) {
-    document.querySelector("#pMsj").innerHTML =
-      "No se ha encontrado censo pre-cargado para la cédula ingresada";
-  } else {
+  if (censoEncontrado) {
     let censista = tomarCensista(censoEncontrado.idCensistas)
     document.querySelector("#txtCedulaCenso").setAttribute("disabled", "disabled");
     if (censoEncontrado.verificado) {
-
       bloquearCampos()
-      document.querySelector("#pAuxDatos").innerHTML = `El censo para la cédula ${censoEncontrado.cedula} fue verificado por ${censista.nombre}. Se ha deshabilitado el ingreso de datos o modificación de los ya existentes <br>      `
+      document.querySelector("#pAuxDatos").innerHTML = `El censo para la cédula ${censoEncontrado.cedula} fue verificado por <strong>${censista.nombre}</strong>. Se ha deshabilitado el ingreso de datos o modificación de los ya existentes <br>      `
       document.querySelector("#btnIngresarDatos").style.display = "none";
-      document.querySelector("#btnEliminarDatos").style.display = "none";
     }
   }
   cambiarSeccion("datos")
@@ -219,6 +226,7 @@ document.querySelector("#btnConsultarCensos").addEventListener("click", cargarPe
 
 function cargarPendientes() {
   let slcPendiente = document.querySelector("#slcPendiente")
+  document.querySelector("#pCedula").innerHTML = "";
   slcPendiente.innerHTML = `<option value="select" selected>Seleccionar...</option>`
   for (let i = 0; i < sistema.censos.length; i++) {
     let censo = sistema.censos[i];
@@ -295,6 +303,7 @@ function registrarCensista() {
   cambiarSeccion("consultarCensos")
   cargarPendientes()
   reloadLogin()
+  limpiarCampos()
 
   document.querySelector("#pMensajes").innerHTML = "Registro exitoso";
 }
@@ -328,10 +337,8 @@ document
   .addEventListener("click", ingresarDatosPersona);
 
 function ingresarDatosPersona() {
-
   pAuxDatos.innerHTML = "";
   let datos = tomarDatosCenso()
-
   if (!validarCamposCompletados(
       datos.cedula,
       datos.nombre,

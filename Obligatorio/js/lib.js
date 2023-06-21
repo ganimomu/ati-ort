@@ -109,7 +109,15 @@ function validarCamposCompletados(...campos) { //funcion que recibe como paramet
   return true; //si estan completos retorna verdadero
 }
 
-
+function limpiarMensajes() {
+  document.querySelector("#pMsj").innerHTML = ""
+  document.querySelector("#pPostIngreso").innerHTML = ""
+  document.querySelector("#pMensajes").innerHTML = ""
+  document.querySelector("#pConsultaCensos").innerHTML = ""
+  document.querySelector("#pAuxDatos").innerHTML = ""
+  document.querySelector("#pCedula").innerHTML = ""
+  document.querySelector("#pReasignacion").innerHTML = ""
+}
 
 function limpiarCampos() {
   document.querySelector("#txtPassword").value = "";
@@ -178,6 +186,7 @@ function mostrarSeccion() {
   let idBoton = this.getAttribute("id");
   let idSeccion = idBoton.charAt(3).toLowerCase() + idBoton.substring(4);
   cambiarSeccion(idSeccion);
+  limpiarMensajes()
 }
 
 
