@@ -113,10 +113,14 @@ function limpiarMensajes() {
   document.querySelector("#pMsj").innerHTML = ""
   document.querySelector("#pPostIngreso").innerHTML = ""
   document.querySelector("#pMensajes").innerHTML = ""
-  document.querySelector("#pConsultaCensos").innerHTML = ""
   document.querySelector("#pAuxDatos").innerHTML = ""
   document.querySelector("#pCedula").innerHTML = ""
   document.querySelector("#pReasignacion").innerHTML = ""
+  document.querySelector("#txtPassword").style.display = "none";
+  document.querySelector("#lblPassword").style.display = "none";
+  document.querySelector("#txtUsuario").style.display = "none";
+  document.querySelector("#lblUsuario").style.display = "none";
+  document.querySelector("#btnLogin").style.display = "none"
 }
 
 function limpiarCampos() {
@@ -130,8 +134,9 @@ function limpiarCampos() {
   document.querySelector("#txtNombre").value = "";
   document.querySelector("#txtApellido").value = "";
   document.querySelector("#txtEdad").value = "";
-  document.querySelector("#slcDepartamento").value = "";
-  document.querySelector("#slcOcupacion").value = "";
+  document.querySelector("#slcDepartamento").value = "select";
+  document.querySelector("#slcOcupacion").value = "select";
+  document.querySelector("#slcUser").value = "select";
 }
 
 function bloquearCampos() {
@@ -161,6 +166,16 @@ function ocultarSecciones() { //oculta todas las secciones al inicio de la aplic
   }
 }
 
+function tomarUnDepartamento(codigo) {
+  for (let i = 0; i < sistema.departamentos.length; i++) {
+    const departamento = sistema.departamentos[i]
+    if (departamento.codigo === codigo) {
+      console.log(departamento)
+      return departamento
+    }
+  }
+}
+
 function mostrarBotones(tipo) {
   let botones = document.querySelectorAll(".btn");
   for (let i = 0; i < botones.length; i++) {
@@ -187,6 +202,7 @@ function mostrarSeccion() {
   let idSeccion = idBoton.charAt(3).toLowerCase() + idBoton.substring(4);
   cambiarSeccion(idSeccion);
   limpiarMensajes()
+  limpiarCampos()
 }
 
 

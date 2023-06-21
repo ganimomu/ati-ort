@@ -7,12 +7,11 @@
     <title>Moreno, Notte - Obligatorio P1</title>
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-
   <body>
     <div id="contenedor">
       <div id="cabezal" class="clearfix">
         <!-- Tocar el logo re-inicia la aplicación de momento -->
-        <a href="index.html" class="tooltip">
+        <a href="/" class="tooltip">
           <img
             id="logo"
             src="https://p1.develotion.com/2023_03/logo.jpg"
@@ -21,8 +20,6 @@
             >Tocar el logo re-inicia la aplicación de momento</span
           >
         </a>
-        <!-- wtf -->
-
         <ul id="navPrincipal">
           <li id="btnIngreso" class="btn inicio">
             <a>Ingreso</a>
@@ -47,14 +44,12 @@
         <!-- FIN AUX -->
       </div>
       <!-- FIN CABEZAL -->
-
       <div id="contenido">
         <div id="inicio" class="seccion">
           <div>
             <img src="https://p1.develotion.com/2023_03/foto1.webp" />
           </div>
         </div>
-
         <!-- INICIO SECCION INGRESO -->
         <div id="ingreso" class="seccion">
           <h3>Bienvenidos al Censo 2023</h3>
@@ -72,16 +67,16 @@
           >
           <select name="slcUser" id="slcUser">
             <!--El select contiene 3 opciones-->
-            <option value="selected" selected disabled>Seleccionar...</option>
+            <option value="select" selected disabled>Seleccionar...</option>
             <!--opcion selecccionar esta desactivada y seleccionada por default-->
             <option value="i">Invitado</option>
             <option value="u">Censista</option> </select
           ><br />
           <div id="login">
-            <label for="txtUsuario" id="lblUsuario" style="display: none"
-              >PLACEHOLDER</label
-            >
-            <!-- PLACEHOLDER VA CAMBIAR: Para Invitado: "Ingrese su cedula:" || Para censista: "Ingrese su nombre de usuario:"-->
+            <label
+              for="txtUsuario"
+              id="lblUsuario"
+              style="display: none"></label>
             <input type="text" id="txtUsuario" style="display: none" /><br />
             <label for="txtPassword" id="lblPassword" style="display: none"
               >Ingresar contraseña:</label
@@ -101,9 +96,7 @@
           <p id="pPostIngreso"></p>
           <input type="button" value="Modificar datos" id="btnPostIngreso" />
         </div>
-
         <!-- FIN SECCIÓN POST INGRESO -->
-
         <!-- INICIO SECCION REGISTROs -->
         <div id="registro" class="seccion">
           <h3>Registrarse como nuevo censista</h3><br />
@@ -118,19 +111,7 @@
           <input type="button" id="btnRegistrar" value="Registrarse" />
           <p id="pMensajes"> </p
         ></div>
-
         <!-- FIN SECCION REGISTRO -->
-
-        <!-- INICIO SECCION INICIAR CENSO -->
-        <div id="iniciarCenso" class="seccion">
-          <h3>Inicializar censo</h3>
-          <label for="txtCedulaPre">Ingresar cédula:</label>
-          <input type="text" id="txtCedulaPre" /><br />
-          <p id="pConsultaCensos"></p>
-          <input type="button" id="btnIniciarCenso" value="Iniciar censo" />
-        </div>
-        <!-- FIN SECCION INICIAR CENSO -->
-
         <!-- INICIO SECCION DATOS CENSO -->
         <div id="datos" class="seccion">
           <h3>Ingresar datos para el censo</h3>
@@ -145,12 +126,12 @@
           <input type="text" id="txtEdad" /><br />
           <label for="slcDepartamento">Seleccionar Departamento:</label>
           <select id="slcDepartamento">
-            <option value="" selected disabled>Seleccione...</option>
+            <option value="select" selected disabled>Seleccione...</option>
           </select>
           <br />
           <label for="slcOcupacion">Seleccionar Ocupacion:</label>
           <select id="slcOcupacion">
-            <option value="" selected disabled>Seleccione...</option>
+            <option value="select" selected disabled>Seleccione...</option>
             <option value="ind">Independiente</option>
             <option value="dep">Dependiente</option>
             <option value="est">Estudiante</option>
@@ -162,7 +143,6 @@
         </div>
         <!-- FIN SECCION DATOS CENSO -->
         <div id="postCenso" class="seccion"> </div>
-
         <!-- INICIO SECCION CONSULTAR CENSOS -->
         <div id="consultarCensos" class="seccion">
           <h3>Consultar censos</h3>
@@ -186,7 +166,6 @@
           <input type="button" id="btnConsultaCensos" value="Consultar" />
         </div>
         <!-- FIN SECCION CONSULTAR CENSOS -->
-
         <!-- INICIO SECCION REASIGNAR CENSADO -->
         <div id="reasignar" class="seccion">
           <h3>Reasignar persona para validar</h3>
@@ -209,7 +188,6 @@
             value="Reasignar persona seleccionada a censista seleccionado" />
         </div>
         <!-- FIN SECCION REASIGNAR CENSADO -->
-
         <!-- INICIO SECCION VISUALIZAR ESTAIDISTICAS -->
         <div id="visualizarEstadisticas" class="seccion">
           <h3></h3>

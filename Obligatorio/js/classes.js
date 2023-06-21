@@ -37,36 +37,36 @@ class Censo {
 class Sistema {
   constructor() {
     this.censos = [
-      new Censo("51474238", "Gabriel", "Moreno", 21, "S", "dep"),
-      new Censo("11111111", "Lucas", "Alfaro", 21, "C", "des"),
-      new Censo("22222222", "Pablo", "Moreno", 52, "A", "est"),
-      new Censo("33333333", "Franco", "Notte", 20, "C", "est"),
-      new Censo("44444444", "Julieta", "Rovetta", 20, "D", "est"),
-      new Censo("55555555", "Marcos", "Romero", 12, "E", "dep"),
+      new Censo("51474238", "Gabriel", "Moreno", 21, "A", "dep"),
+      new Censo("11111111", "Lucas", "Alfaro", 21, "B", "des"),
+      new Censo("22222222", "Pablo", "Moreno", 52, "C", "est"),
+      new Censo("33333333", "Franco", "Notte", 20, "D", "est"),
+      new Censo("44444444", "Julieta", "Rovetta", 20, "E", "est"),
+      new Censo("55555555", "Marcos", "Romero", 12, "F", "dep"),
       new Censo("66666666", "Lucas", "Gargiulo", 31, "F", "dep"),
       new Censo("77777777", "Juan", "Pablo", 32, "G", "est"),
-      new Censo("88888888", "Diego", "Forlan", 45, "S", ""),
-      new Censo("99999999", "Ernesto", "Buysan", 23, "H", "des"),
-      new Censo("10101010", "Maria", "Rawr", 21, "I", "des"),
-      new Censo("20202020", "Antonella", "Mollo", 21, "B", "des"),
-      new Censo("30303030", "Nacho", "Rodriguez", 23, "M", "est"),
-      new Censo("40404040", "Martin", "Chaia", 23, "R", "ind"),
-      new Censo("50505050", "Eric", "Galli", 19, "S", "est"),
-      new Censo("60606060", "Jose", "Artigas", 78, "T", "des"),
-      new Censo("70707070", "Adrian", "Ramos", 23, "H", "est"),
-      new Censo("80808080", "Adriana", "Pintos", 44, "J", "ind"),
-      new Censo("90909090", "Rosina", "Santos", 25, "K", "ind"),
-      new Censo("12121212", "Rocio", "Lujan", 18, "L", "est"),
-      new Censo("21212121", "Esther", "Esposito", 15, "D", "est"),
-      new Censo("13131313", "Gian", "Colman", 23, "F", "est"),
-      new Censo("31313131", "Santiago", "Fagnoni", 40, "C", "dep"),
-      new Censo("41414141", "Isak", "Alexander", 40, "A", "dep"),
-      new Censo("14141414", "Ivan", "Rustik", 70, "A", "ind"),
+      new Censo("88888888", "Diego", "Forlan", 45, "H", "ind"),
+      new Censo("99999999", "Ernesto", "Buysan", 23, "I", "des"),
+      new Censo("10101010", "Maria", "Rawr", 21, "J", "des"),
+      new Censo("20202020", "Antonella", "Mollo", 21, "K", "des"),
+      new Censo("30303030", "Nacho", "Rodriguez", 23, "L", "est"),
+      new Censo("40404040", "Martin", "Chaia", 23, "M", "ind"),
+      new Censo("50505050", "Eric", "Galli", 19, "N", "est"),
+      new Censo("60606060", "Jose", "Artigas", 78, "O", "des"),
+      new Censo("70707070", "Adrian", "Ramos", 23, "P", "est"),
+      new Censo("80808080", "Adriana", "Pintos", 44, "Q", "ind"),
+      new Censo("90909090", "Rosina", "Santos", 25, "R", "ind"),
+      new Censo("12121212", "Rocio", "Lujan", 18, "S", "est"),
+      new Censo("21212121", "Esther", "Esposito", 15, "S", "est"),
+      new Censo("13131313", "Gian", "Colman", 23, "R", "est"),
+      new Censo("31313131", "Santiago", "Fagnoni", 40, "Q", "dep"),
+      new Censo("41414141", "Isak", "Alexander", 40, "P", "dep"),
+      new Censo("14141414", "Ivan", "Rustik", 70, "O", "ind"),
       new Censo("51515151", "Tomas", "Vino", 24, "N", "est"),
-      new Censo("61616161", "Lucia", "Casanova", 20, "L", "dep"),
-      new Censo("16161616", "Carolina", "Robaina", 22, "S", "ind"),
-      new Censo("15151515", "Berta", "Paquita", 110, "S", "des"),
-      new Censo("42069133", "Josefina", "Color", 1, "S", "ind")
+      new Censo("61616161", "Lucia", "Casanova", 20, "M", "dep"),
+      new Censo("16161616", "Carolina", "Robaina", 22, "L", "ind"),
+      new Censo("15151515", "Berta", "Paquita", 110, "K", "des"),
+      new Censo("42069133", "Josefina", "Color", 1, "J", "ind")
     ];
     this.censistas = [
       new Censista("ganimomu", "Gabriel", "1Abc2"),
@@ -109,7 +109,7 @@ class Sistema {
       censo.idCensistas = censista.idCensistas
       if (rng % 3 === 0) {
         censo.verificado = true
-        //console.log(`Censo pre-verificado: ${censo.cedula}`)
+        console.log(`Censo pre-verificado: ${censo.cedula}`)
       }
     }
 
