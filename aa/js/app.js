@@ -165,13 +165,11 @@ function mostrarIngreso() {
     ).innerHTML = `Ingrese su nombre de usuario:`;
     labelUsuario.style.display = "block"
     txtUsuario.style.display = "block"
-    txtUsuario.setAttribute("placeholder", "Ingrese su nombre de usuario...")
     labelPassword.style.display = "block"
     txtPassword.style.display = "block"
   } else if (value === "i") {
     document.querySelector("#btnLogin").style.display = "block"
     document.querySelector("#lblUsuario").innerHTML = `Ingrese su cédula:`;
-    txtUsuario.setAttribute("placeholder", "Ingrese su cédula...")
     labelUsuario.style.display = "block"
     txtUsuario.style.display = "block"
     labelPassword.style.display = "none"

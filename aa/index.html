@@ -65,7 +65,7 @@
             <strong>Censista</strong> e ingrese sus datos para iniciar
             sesión.</p
           >
-          <select id="slcUser">
+          <select name="slcUser" id="slcUser">
             <!--El select contiene 3 opciones-->
             <option value="select" selected disabled>Seleccionar...</option>
             <!--opcion selecccionar esta desactivada y seleccionada por default-->
@@ -84,8 +84,7 @@
             <input
               type="password"
               id="txtPassword"
-              style="display: none"
-              placeholder="Ingrese su contraseña..." /><br />
+              style="display: none" /><br />
             <input type="button" value="Ingresar" id="btnLogin" /><br />
             <p id="pMsj"></p>
           </div>
@@ -104,20 +103,11 @@
           <label for="txtNombreDeUsuarioRegistro">
             Ingrese un nombre de usuario:</label
           >
-          <input
-            type="text"
-            id="txtNombreDeUsuarioRegistro"
-            placeholder="Ingresar nombre de usuario..." /><br />
+          <input type="text" id="txtNombreDeUsuarioRegistro" /><br />
           <label for="txtNombreRegistro">Ingrese su nombre:</label>
-          <input
-            type="text"
-            id="txtNombreRegistro"
-            placeholder="Ingresar nombre..." /><br />
+          <input type="text" id="txtNombreRegistro" /><br />
           <label for="txtContraRegistro">Ingrese una contraseña:</label>
-          <input
-            type="password"
-            id="txtContraRegistro"
-            placeholder="Ingresar contraseña..." /><br />
+          <input type="password" id="txtContraRegistro" /><br />
           <input type="button" id="btnRegistrar" value="Registrarse" />
           <p id="pMensajes"> </p
         ></div>
@@ -127,25 +117,13 @@
           <h3>Ingresar datos para el censo</h3>
           <p></p>
           <label for="txtCedulaCenso">Ingresar cédula:</label>
-          <input
-            type="text"
-            id="txtCedulaCenso"
-            placeholder="Ingresar cedula..." /><br />
+          <input type="text" id="txtCedulaCenso" /><br />
           <label for="txtNombre">Ingresar nombre:</label>
-          <input
-            type="text"
-            id="txtNombre"
-            placeholder="Ingresar nombre" /><br />
+          <input type="text" id="txtNombre" /><br />
           <label for="txtApellido">Ingresar apeliido:</label>
-          <input
-            type="text"
-            id="txtApellido"
-            placeholder="Ingresar apellido..." /><br />
+          <input type="text" id="txtApellido" /><br />
           <label for="txtEdad">Ingresar edad:</label>
-          <input
-            type="text"
-            id="txtEdad"
-            placeholder="Ingresar edad..." /><br />
+          <input type="text" id="txtEdad" /><br />
           <label for="slcDepartamento">Seleccionar Departamento:</label>
           <select id="slcDepartamento">
             <option value="select" selected disabled>Seleccione...</option>
