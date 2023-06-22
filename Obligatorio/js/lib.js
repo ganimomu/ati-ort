@@ -1,29 +1,7 @@
 // Libreria armada en función a los códigos trabajados en el momento.
 // Códigos en ejercicios son primeras versiones de los presentes en la libreria
 
-function charReplacer(string, char, replacingChar = "") {
-  let newString = "";
-  for (let i = 0; i < string.length; i++) {
-    if (string.toLowerCase().charAt(i) === char.toLowerCase()) {
-      newString += replacingChar;
-    } else {
-      newString += string.charAt(i);
-    }
-  }
-  return newString;
-}
-
-function charCounter(string, char) {
-  let contador = 0;
-  for (let i = 0; i < string.length; i++) {
-    if (string.charAt(i) === char) {
-      ++contador;
-    }
-  }
-  return contador;
-}
-
-function verificacionDeCI(cedula) {
+function verificacionDeCI(cedula) { //funcion que verifica que la cedula tenga un formato correcto y sea valida
   let CI = cedula
   if (CI.length === 7) {
     CI = "0" + CI;
@@ -38,6 +16,12 @@ function verificacionDeCI(cedula) {
   return Number(digitoVerificar) === digitoVerificador
 }
 
+/**
+ * verificarFormatoContrasena(): Recibe parametro contra
+ * Basado en sistema de true/false, valida del parametro recibido: 
+ * Longitud del parametro, si es menor a 5 retornara false. * 
+ * Caracteres individuales en busca de coincidencias para: 1 número, 1 caracter en mayuscula, 1 caracter en minuscula
+ */
 function verificarFormatoContrasena(contra) {
   let minuscula = false;
   let mayuscula = false;
@@ -61,6 +45,11 @@ function verificarFormatoContrasena(contra) {
   return minuscula && mayuscula && numero;
 }
 
+/**
+ * numeroAleatorio(): Recibe 1 parametro: max
+ * Genera un número aleatorio entre 0 y el parametro recibido no inclusive.
+ * Ejemplo: max = 3 - Posible output: 0, 1, 2;
+ */
 function numeroAleatorio(max) {
   return Math.floor(Math.random() * max)
 }
@@ -74,7 +63,12 @@ function tomarCensoExistente(cedula) {
   }
   return censo;
 }
-
+/**
+ * tomarCensista(): Recibe un parametro
+ * Recorre el Array Censistas en Sistema buscando coincidencia para el parametro recibido y el idCensista registrado en el sistema
+ * Si encuentra coincidencia, retorna el objeto del Censista encontrado.
+ * Por default retorna false
+ */
 function tomarCensista(idCensista) {
   let censista = false
   for (let i = 0; i < sistema.censistas.length; i++) {
@@ -85,6 +79,12 @@ function tomarCensista(idCensista) {
   return censista
 }
 
+
+/** 
+ * stringifyCedula(): Recibe un parametro
+ * Recibe un string y toma los números del mismo para retornar un nuevo string concatenando unicamente digitos númericos.
+ * Ejemplo: cedula = 5.147.423-8 - Output: 51474238
+ */
 function stringifyCedula(cedula) { //La función stringifyCedula elimina cualquier carácter no numérico del usuario ingresado.
   let newCedula = ""; // Variable guardada como string así al sumar en la verificación arroja el string entero y no suma los números
   for (let i = 0; i < cedula.length; i++) {

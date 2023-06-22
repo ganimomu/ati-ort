@@ -4,25 +4,31 @@ let login; // Variable que va guardar si el usuario que inicia sesión es censis
 
 document.querySelector("#logoff").addEventListener("click", logoff); // Agrega un evento de clic al elemento con el ID "logoff" y llama a la función logoff cuando se produce el clic.
 
+/**
+ * logoff(): Reinicializa la aplicación sin tener que perder datos ingresados en la instancia actual.
+ * Descripción alternativa: Cierra sesión y retorna al inicio de la página.
+ */
 function logoff() {
   login = null; // Establece la variable "login" como null, lo que indica que no hay ningún usuario autenticado.
   reloadLogin(); //Llama a la función "reloadLogin" para actualizar la interfaz de usuario después de cerrar sesión.
   limpiarMensajes(); //Llama a la función "limpiarMensajes" para eliminar cualquier mensaje de pantalla anterior.
   limpiarCampos(); //Llama a la función "limpiarCampos" para restablecer los campos de entrada del formulario.
 }
-
+/**
+ * cargarDepartamentos(): Toma del HTML el select #slcDepartamento en la sección #datos para cargar como elementos "option" cada objeto presente en el Array Departamentos en Sistema
+ */
 function cargarDepartamentos() {
   let datos = document.querySelector("#slcDepartamento"); //Obtiene el elemento select con el ID "slcDepartamento" y lo asigna a la variable "datos".
-  let grafico = document.querySelector("#slcEstadCensos"); //Obtiene el elemento select con el ID "slcEstadCensos" y lo asigna a la variable "grafico".
   for (let i = 0; i < sistema.departamentos.length; i++) { // Recorre los elementos del array "departamentos" del objeto "sistema".
     let departamento = sistema.departamentos[i]; //Obtiene el departamento actual del array departamentos y lo asigna a la variable "departamento".
     datos.innerHTML += `<option value=${departamento.codigo}>${departamento.nombre}</option>`; //Agrega una opción al elemento "datos" con el valor y nombre del departamento
-    grafico.innerHTML += `<option value=${departamento.codigo}>${departamento.nombre}</option>`; //Agrega una opción al elemento "grafico" con el valor y nombre del departamento
   }
 }
 cargarDepartamentos(); // Llama a la función cargarDepartamentos para cargar los departamentos en los elementos select correspondientes.
 
-
+/**
+ * reloadLogin(): Se encarga de refrescar el estado de la aplicación basado en la variable `login`, que es la que almacena los datos del usuario logueado
+ */
 function reloadLogin() {
   if (login) { //Verifica si hay una sesión de inicio de sesión activa.
     document.querySelector("#spanUsuario").innerHTML = `Ingreso como ${login.usuario}`; //Actualiza el contenido del elemento con el ID "spanUsuario" para mostrar el nombre de usuario del inicio de sesión.
@@ -40,6 +46,15 @@ function reloadLogin() {
   }
 }
 
+/**
+ * verficiarLogin(): Recibe 2 parametros, username y password
+ * username se usa para encontrar el nombre de usuario censista en el Array Censistas cargados en el Sistema
+ * Si encuentra coincidencia de nombre de usuario, procede a verificar que:
+ * password recibida como parametro coinicida con la propiedad `contrasena` dentro del objeto Censista..
+ * Si ambas validaciones resultan exitosas, devuelve el objeto Censista como variable para posteriormente ser usada en el login
+ * 
+ * En caso de que alguna de las dos validaciones no sean fructiferas, retornara false.
+ */
 function verificarLogin(username, password) { //Funcion que recibe 2 parametros, usuario y contrsenia para verificar el ingreso de un censista.
   let usuario = false; //Variable que almacenará El resultado de la verificación de inicio de sesión, se inicializa variable usuario en false.
   for (let i = 0; i < sistema.censistas.length; i++) { //Recorre cada posicion del array censistas en el objeto sistema.
@@ -129,6 +144,16 @@ function ingresoSistema() {
   contrasenia.innerHTML = ""; //Limpia el contenido del elemento con ID contrasenia
 }
 
+/**
+ * loginInvitado(): Función exclusiva para uso cuando el usuario logueado es tipo invitado,
+ * Invoca a tomarCensoExistente() para buscar si el ingreso a la aplicación fue realizado con una cédula que ya realizó el censo.
+ * Invoca también a tomarCensista() basado en la invocación anterior para tomar el censista que fuese asignado al censo existente.
+ * 
+ * En caso de que el censo para la cédula ingresada ya haya sido verificado, muestra mensaje de confirmación de esta situación y limita el uso de la aplicación desde este punto para el usuario logueado.
+ * 
+ * En caso de que el censo no haya sido todavía verificado, da la opción al usuario de modificar los datos del censo o eliminarlos.
+ */
+
 function loginInvitado() {
   let pPostLogin = document.querySelector("#pPostIngreso"); //Obtiene el elemento con el ID "pPostIngreso" y lo asigna a la variable "pPostLogin".
   let hPostLogin = document.querySelector("#hPostIngreso"); //Obtiene el elemento con el ID "hPostIngreso" y lo asigna a la variable "hPostLogin".
@@ -147,6 +172,14 @@ function loginInvitado() {
     document.querySelector("#btnPostIngreso").style.display = "none";
   }
 }
+
+/**
+ * mostrarIngreso(): Contiene la funcionalidad lógica detras del select para ingreso de usuario
+ * 
+ * Si el select determina que el ingreso es de invitado (valor de #slcUser = i), muestra el campo de texto para ingreso de usuario, modificando el label y el input acorde al pedido de cédula
+ * 
+ * Si en cambio determina que es usuario censista (valor de #slcUser = u), muestra el campo de texto usuario y campo de texto contraseña, modificando labels e inputs acorde al pedido de ingresos
+ */
 
 function mostrarIngreso() { // Esta funcion tiene como objetivo mostrar diferentes elementos en la interfaz de usuario según la opción seleccionada en un elemento select con el ID "slcUser".
   let value = document.querySelector("#slcUser").value; //Obtiene el valor seleccionado del elemento con el ID "slcUser" y lo asigna a la variable "value".
@@ -178,7 +211,20 @@ function mostrarIngreso() { // Esta funcion tiene como objetivo mostrar diferent
 
 // INICIO LOGICA CARGA DE DATOS PARA CENSO
 
-
+/**
+ * cargarDatos(): Recibe como parametro una cédula y emplea lógica de busqueda en el Array Censos cargados en el Sistema. Manipula también el HTML para la sección #datos
+ * 
+ * La función inicializa manipulando los botones presentes en la sección del documento HTML asumiendo que se va a inicializar un censo nuevo desde 0, asignando el botón de carga de datos como "Registrar censo" y ocultando el botón para eliminar censo
+ * 
+ * Emplea una recorrida en el array de Censos y busca coincidencia para la cedula recibida contra la cedula registrada en un censo.
+ * 
+ * Si encuentra coincidencia, toma en cuenta el usuario logueado para determinar si actua bajo modificación de datos (para invitado) o modificación y validación de datos (para censista). También muestra el botón para eliminar datos en caso de que el usuario logueado sea invitado.
+ * Pre-carga los datos en la sección #datos y bloquea el campo de ingreso para cedula ya que la misma es la asociada al censo cargado
+ * 
+ * Solo para usuario censista: Verifica si la cedula recibida tiene un censo ya validado. En caso verdadero muestra los datos del censo pero no permite modificación de los mismos, aparte de mostrar un mensaje de aviso
+ * 
+ * Si no encuentra coincidencia de censo con respecto a cedula, llena únicamente el campo respectivo para cédula en la sección #datos pero no bloquea el campo, en caso de que se deba hacer correción de la misma antes de registrar censo.
+ */
 function cargarDatos(cedula) {
   desbloquearCampos(); //Llama a la función "desbloquearCampos" para desbloquear los campos de entrada de datos.
   let stringCedula = stringifyCedula(cedula); //Convierte la cédula recibida a una cadena y la asigna a la variable "stringCedula".
@@ -228,6 +274,10 @@ function cargarDatos(cedula) {
 document.querySelector("#btnConsultaCensos").addEventListener("click", consultarCensos);
 document.querySelector("#btnConsultarCensos").addEventListener("click", cargarPendientes)
 
+/**
+ * cargarPendientes(): Cumple la función de cargar en el HTML, para el select #slcPendiente, tomar el censista logueado, validar su ID contra censos por validar, y cargar en el select las coincidencias respecto al ID Censista asignado al censo y el ID del censista logueado
+ */
+
 function cargarPendientes() {
   let slcPendiente = document.querySelector("#slcPendiente")
   document.querySelector("#pCedula").innerHTML = "";
@@ -239,8 +289,15 @@ function cargarPendientes() {
     }
   }
 }
+/**
+ * Este querySelector emplea una arrowFunction simplemente para actualizar el campo #txtCedula en la sección #consultarCensos según lo que haya seleccionado en #slcPendiente
+ */
 document.querySelector("#slcPendiente").addEventListener("change", () => document.querySelector("#txtCedula").value = document.querySelector("#slcPendiente").value);
 
+/**
+ * consultarCensos(): Toma el valor del campo #txtCedula y emplea la logica de cargarDatos() con el valor del campo para que prepare la sección #datos. Inmediatamente después transfiere a dicha sección
+ *  
+ */
 function consultarCensos() {
   let cedula = stringifyCedula(document.querySelector("#txtCedula").value); //Obtener el valor de la cédula del campo de texto y convertirlo a formato válido
   if (!validarCamposCompletados(cedula)) { //Verificar si se han completado todos los campos
@@ -261,6 +318,8 @@ function consultarCensos() {
 
 document.querySelector("#btnRegistrar").addEventListener("click", registrarCensista);
 
+
+
 function verificarNombreUsuarioUnico(nombreUsuario) {
   let existe = false; //Variable para indicar si el nombre de usuario existe o no
   for (let i = 0; i < sistema.censistas.length; i++) { //Recorrer los elementos en el array censistas del objeto sistema
@@ -272,6 +331,13 @@ function verificarNombreUsuarioUnico(nombreUsuario) {
   return existe;
 }
 
+/**
+ * registarCensista(): Esta función toma valor de campos en la sección #registro y los usa para permitir o denegar el registro de un nuevo censista en el sistema
+ * 
+ * validarCamposCompletados() es invocada para validar que no hayan campos vacios; verificarNombreUsuarioUnico() es invocada para validar que el nombre de usuario que se toman de los datos no se encuentre registrado en el sistema; verificarFormatoContraseña() valida si la contraseña cumple con las condiciones minimas para una contraseña.#
+ * 
+ * Si la función pasa las validaciones anteriores, se procede a generar un nuevo objeto Censista y se lo ingresa al Array cargado en Sistema. Una vez registrado en el sistema, procede a ingresar a la aplicación a la sección de #consultarCensos
+ */
 function registrarCensista() {
   // Obtener los valores de los campos de texto y eliminar los espacios en blanco al principio y al final
   let nombreUsuario = document.querySelector("#txtNombreDeUsuarioRegistro").value.trim();
@@ -312,7 +378,9 @@ function registrarCensista() {
 
 //------------------------------------------------------------------------
 
-//funcion para acumular los datos de una nueva persona
+/**
+ * tomarDatosCenso(): Se encarga de obtener del HTML los datos del censo que se esta creando/modificando en el momento de la llamada, devuelve un objeto con los datos para facilitar su uso 
+ */
 
 function tomarDatosCenso() {
   let cedula = document.querySelector("#txtCedulaCenso").value; //guarda el valor ingresado en el campo de texto con id txtCedulaCenso y lo guarda en la variable cedula.
@@ -335,6 +403,18 @@ function tomarDatosCenso() {
 
 
 document.querySelector("#btnIngresarDatos").addEventListener("click", ingresarDatosPersona);
+
+/**
+ * ingresarDatosPersona(): Invoca la función tomarDatosCenso() para facilitar la manipulación de valores de campos del HTML para facilitar la manipulación
+ * Esta función se encarga de validar en principio que los datos ingresados sean correctos, campos completados por medio de validarCamposCompletados() y edad dentro de rango por medio de verificarEdad();
+ * 
+ * Al usar la misma función para ingreso de nuevo censo tanto para modificacion de censo, se genera una variable que almacene un censo de la base de datos en caso de encontrar coincidencia entre la cédula devuelta en tomarDatosCenso() y una cédula en la base de datos.
+ * 
+ * Si no hubo coincidencia de censo existente, procede con la lógica de nuevo censo. Valida si el usuario logueado es censista o invitado para contemplar si debe validar automaticamente el censo o asignar un censista para posteriormente validar el censo ingresado
+ * 
+ * Si hubo coincidencia de censo existente, procede con la lógica de modificación de censo. Valida también si usuario logueado es censista o invitado para contemplar si debe validar censo al mismo tiempo (en caso de censista, ya que verificará que los datos sean correctos), o si simplemente modificara los datos si es usuario invitado.
+ * Procede a sustituir los datos del censo existente con los datos ingresados en la sección para cargar datos. 
+ */
 
 function ingresarDatosPersona() {
   pAuxDatos.innerHTML = ""; //Limpia el contenido del elemento pAuxDatos
@@ -401,7 +481,11 @@ function ingresarDatosPersona() {
 
 
 
-// LÓGICA ELIMINAR CENSO
+/** 
+ * eliminarCenso(): Recibe los datos sobre un censo existente y modificable, lo busca en el Array de Censos cargados en el sistema por cédula y si encuentra la coincidencia procede a eliminar dicho censo valiendose de la función borrarCenso() cargada en el sistema
+ * Esta función como tal se encarga de manipular principalmente el HTML, el borrado del censo se encarga borrarCenso()
+ * 
+ */
 document.querySelector("#btnEliminarDatos").addEventListener("click", eliminarCenso);
 
 function eliminarCenso() { // Función para eliminar un censo.
