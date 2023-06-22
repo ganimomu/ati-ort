@@ -1,58 +1,57 @@
-let sistema = new Sistema(); //Crea una nueva instancia de la clase "Sistema" y la asigna a la variable "sistema"
-let pAuxDatos = document.querySelector("#pAuxDatos");
-let login; // Variable que va guardar si el usuario que inicia sesión es censista o censado //login al ingresar pasa a ser un nuevo objeto
+let sistema = new Sistema(); //Crea una nueva instancia de la clase "Sistema" y la asigna a la variable "sistema".
+let pAuxDatos = document.querySelector("#pAuxDatos"); //Asigna el elemento HTML con el ID "pAuxDatos" a la variable pAuxDatos.
+let login; // Variable que va guardar si el usuario que inicia sesión es censista o censado - login al ingresar pasa a ser un nuevo objeto.
 
-document.querySelector("#logoff").addEventListener("click", logoff)
+document.querySelector("#logoff").addEventListener("click", logoff); // Agrega un evento de clic al elemento con el ID "logoff" y llama a la función logoff cuando se produce el clic.
 
 function logoff() {
-  login = null // Establece la variable "login" como null, lo que indica que no hay ningún usuario autenticado.
-  reloadLogin() //Llama a la función "reloadLogin" para actualizar la interfaz de usuario después de cerrar sesión.
-  limpiarMensajes() //Llama a la función "limpiarMensajes" para eliminar cualquier mensaje de pantalla anterior.
-  limpiarCampos() //Llama a la función "limpiarCampos" para restablecer los campos de entrada del formulario.
+  login = null; // Establece la variable "login" como null, lo que indica que no hay ningún usuario autenticado.
+  reloadLogin(); //Llama a la función "reloadLogin" para actualizar la interfaz de usuario después de cerrar sesión.
+  limpiarMensajes(); //Llama a la función "limpiarMensajes" para eliminar cualquier mensaje de pantalla anterior.
+  limpiarCampos(); //Llama a la función "limpiarCampos" para restablecer los campos de entrada del formulario.
 }
 
-
 function cargarDepartamentos() {
-  let datos = document.querySelector("#slcDepartamento"); //Obtiene el elemento del DOM con el ID "slcDepartamento" y lo asigna a la variable "datos"
-  let grafico = document.querySelector("#slcEstadCensos"); //Obtiene el elemento del DOM con el ID "slcEstadCensos" y lo asigna a la variable "grafico"
-  for (let i = 0; i < sistema.departamentos.length; i++) { // recorre los elementos del array "departamentos" del objeto "sistema"
-    let departamento = sistema.departamentos[i]; //Obtiene el departamento actual del array y lo asigna a la variable "departamento"
+  let datos = document.querySelector("#slcDepartamento"); //Obtiene el elemento select con el ID "slcDepartamento" y lo asigna a la variable "datos".
+  let grafico = document.querySelector("#slcEstadCensos"); //Obtiene el elemento select con el ID "slcEstadCensos" y lo asigna a la variable "grafico".
+  for (let i = 0; i < sistema.departamentos.length; i++) { // Recorre los elementos del array "departamentos" del objeto "sistema".
+    let departamento = sistema.departamentos[i]; //Obtiene el departamento actual del array departamentos y lo asigna a la variable "departamento".
     datos.innerHTML += `<option value=${departamento.codigo}>${departamento.nombre}</option>`; //Agrega una opción al elemento "datos" con el valor y nombre del departamento
     grafico.innerHTML += `<option value=${departamento.codigo}>${departamento.nombre}</option>`; //Agrega una opción al elemento "grafico" con el valor y nombre del departamento
   }
 }
-cargarDepartamentos();
+cargarDepartamentos(); // Llama a la función cargarDepartamentos para cargar los departamentos en los elementos select correspondientes.
 
 
-function reloadLogin() { //funcion de prueba de mostrar secciones  
-  if (login) {
-    document.querySelector("#spanUsuario").innerHTML = `Ingreso como ${login.usuario}`;
-    document.querySelector("#logoff").innerHTML = "Cerrar sesión"
+function reloadLogin() {
+  if (login) { //Verifica si hay una sesión de inicio de sesión activa.
+    document.querySelector("#spanUsuario").innerHTML = `Ingreso como ${login.usuario}`; //Actualiza el contenido del elemento con el ID "spanUsuario" para mostrar el nombre de usuario del inicio de sesión.
+    document.querySelector("#logoff").innerHTML = "Cerrar sesión"; //Actualiza el contenido del elemento con el ID "logoff" para mostrar el texto "Cerrar sesión"
   }
-  if (!login) {
-    document.querySelector("#spanUsuario").innerHTML = ""
-    document.querySelector("#logoff").innerHTML = ""
-    mostrarBotones("inicio")
-    cambiarSeccion("inicio")
-  } else if (login.idCensistas >= 0) {
-    mostrarBotones("censista")
-  } else {
-    mostrarBotones("invitado")
+  if (!login) { //Verifica si no hay una sesión de inicio de sesión activa.
+    document.querySelector("#spanUsuario").innerHTML = ""; //Borra el contenido del elemento con el ID "spanUsuario".
+    document.querySelector("#logoff").innerHTML = ""; //Borra el contenido del elemento con el ID "logoff".
+    mostrarBotones("inicio"); //Llama a una función "mostrarBotones" pasando el parámetro "inicio" para mostrar los botones correspondientes a la sección de inicio.
+    cambiarSeccion("inicio"); //Llama a una función "cambiarSeccion" pasando el parámetro "inicio" para cambiar la sección mostrada en la interfaz.
+  } else if (login.idCensistas >= 0) { //Verifica si el inicio de sesión pertenece a un censista.
+    mostrarBotones("censista"); //Llama a una función "mostrarBotones" pasando el parámetro "censista" para mostrar los botones correspondientes a la sección de censista.
+  } else { // Si no cumple ninguna de las condiciones anteriores, se trata de un inicio de sesión de un invitado.
+    mostrarBotones("invitado"); //Llama a una función "mostrarBotones" pasando el parámetro "invitado" para mostrar los botones correspondientes a la sección de invitado.
   }
 }
 
-function verificarLogin(username, password) { //funcion que recibe 2 parametros, usuario y contrsenia para verificar el ingreso de un censista
-  let usuario = false //Variable que almacenará el resultado de la verificación de inicio de sesión, se inicializa variable usuario en false
-  for (let i = 0; i < sistema.censistas.length; i++) { //recorre cada posicion del array censistas en el objeto sistema
-    let censista = sistema.censistas[i] // a cada objeto cargado en el array censistas lo guarda en una variable censista
-    if (censista.usuario === username) { // verifica si el usuario precargado en el objeto censista es igual al username ingresado
-      if (censista.contrasena === password) { //Compara la contraseña del censista con la contraseña ingresada
-        usuario = censista //Establece el objeto censista como el resultado de la verificación de inicio de sesión
-        return usuario
+function verificarLogin(username, password) { //Funcion que recibe 2 parametros, usuario y contrsenia para verificar el ingreso de un censista.
+  let usuario = false; //Variable que almacenará El resultado de la verificación de inicio de sesión, se inicializa variable usuario en false.
+  for (let i = 0; i < sistema.censistas.length; i++) { //Recorre cada posicion del array censistas en el objeto sistema.
+    let censista = sistema.censistas[i]; // A cada objeto cargado en el array censistas lo guarda en una variable censista.
+    if (censista.usuario === username) { // Verifica si el usuario precargado en el objeto censista es igual al username ingresado.
+      if (censista.contrasena === password) { //Compara la contraseña del censista con la contraseña ingresada.
+        usuario = censista; //Establece el objeto censista como el resultado de la verificación de inicio de sesión.
+        return usuario; //Retorna el objeto "censista".
       }
     }
   }
-  return usuario
+  return usuario; //Retorna false si no se encontró un censista con las credenciales ingresadas.
 }
 
 /* 
@@ -60,35 +59,35 @@ FUNCIONALIDAD PARA INGRESAR AL SISTEMA
 */
 
 
-document.querySelector("#slcUser").addEventListener("change", mostrarIngreso); //al seleccionar una opcion de un combo desplegable se llama a la funcion mostrarIngreso
-document.querySelector("#btnLogin").addEventListener("click", ingresoSistema); //al hacer click en el boton con id:btnLogin se llama a la funcion igresoSistema
+document.querySelector("#slcUser").addEventListener("change", mostrarIngreso); //Agrega un evento de cambio al elemento select con el ID "slcUser". Cuando se selecciona una opción, se llama a la función "mostrarIngreso".
+document.querySelector("#btnLogin").addEventListener("click", ingresoSistema); //Al hacer clic en el boton con id:btnLogin se llama a la funcion igresoSistema.
 
 function ingresoSistema() {
-  let tipoUsuario = document.querySelector("#slcUser").value //variable tipoUsuario que guarda el valor de lo seleccionado en el combo desplegable (censista o invitado)
-  let usuario = document.querySelector("#txtUsuario").value.toLowerCase(); //variable usuario que guarda el nombre de usuario ingresado convertido a minusculas
-  let contrasenia = document.querySelector("#txtPassword").value; ////variable contrasenia que guarda la contrasaenia ingresada
-  mostrarIngreso()
+  let tipoUsuario = document.querySelector("#slcUser").value; //Variable tipoUsuario que guarda el valor de lo seleccionado en el combo desplegable (censista o invitado).
+  let usuario = document.querySelector("#txtUsuario").value.toLowerCase(); //Variable usuario que guarda el nombre de usuario ingresado convertido a minusculas.
+  let contrasenia = document.querySelector("#txtPassword").value; //Variable contrasenia que guarda la contrasaenia ingresada.
+  mostrarIngreso();
 
 
   if (tipoUsuario === "u") { //compara si el tipo de usuario seleccionado en el slcUser es igual a "u" -> censista
     document.querySelector("#txtCedulaCenso").removeAttribute("disabled"); // le quita el disabled al campo de texto para ingresar una cedula para iniciar un censo
     if (validarCamposCompletados(usuario, contrasenia)) { // invoca a la funcion validarCamposCompletados y le pasa como parametro el usuario y la contrasenia ingresados, esta funcion va a devolver un true o false
 
-      let loginValidado = verificarLogin(usuario, contrasenia) //si la funcion anterior devuelve un valor booleano true (osea los campos estan completados)
-      if (!loginValidado) { //
+      let loginValidado = verificarLogin(usuario, contrasenia) //si la funcion anterior devuelve un valor booleano true (osea los campos estan completados) llama a la función "verificarLogin"
+      if (!loginValidado) { //Si el resultado de la verificación de inicio de sesión es false
         document.querySelector("#pMsj").innerHTML = "El nombre de usuario o la contraseña ingresada son incorrectas";
 
       } else {
-        login = loginValidado
+        login = loginValidado //Establece el resultado de la verificación de inicio de sesión como el valor de la variable "login".
         cambiarSeccion("consultarCensos")
-        cargarPendientes();
+        cargarPendientes(); // Llama a la función "cargarPendientes" para cargar los censos pendientes.
         limpiarCampos()
       }
     } else {
       document.querySelector("#pMsj").innerHTML = "Debe completar todos los campos";
     }
   } else if (tipoUsuario === "i") { //inicia una condición alternativa que verifica si el valor de tipoUsuario es igual a "i" (que representa la opción de invitado en el elemento desplegable).
-    cedula = stringifyCedula(usuario) //Llama a la función stringifyCedula pasando el valor de usuario como argumento y asigna el resultado a la variable cedula
+    cedula = stringifyCedula(usuario); //Llama a la función stringifyCedula pasando el valor de usuario como argumento y asigna el resultado a la variable cedula
     if (validarCamposCompletados(cedula)) { //Inicia una condición que verifica si la función validarCamposCompletados devuelve true cuando se le pasa cedula como argumento. 
       if (verificacionDeCI(cedula) && Number(cedula) !== 0) {
         login = { //Asigna un nuevo objeto a la variable login
@@ -107,9 +106,9 @@ function ingresoSistema() {
         }
         cargarDatos(login.usuario) //Llama a la función cargarDatos pasando login.usuario como argumento. Esta función carga los datos correspondientes al usuario en el sistema.
         if (login.censado) {
-          cambiarSeccion("postIngreso")
+          cambiarSeccion("postIngreso") // Si el usuario ha sido censado, cambia la sección mostrada en la interfaz a "postIngreso".
         } else {
-          cambiarSeccion("datos")
+          cambiarSeccion("datos") //De lo contrario, cambia la sección mostrada en la interfaz a "datos".
         }
         loginInvitado()
         //mostrarBotones("invitado")
@@ -121,20 +120,20 @@ function ingresoSistema() {
     }
   }
   if (login) { //Inicia una condición que verifica si login existe 
-    document.querySelector("#spanUsuario").innerHTML = `Ingreso como ${login.usuario}`;
-    reloadLogin()
-    document.querySelector("#slcUser").value = "select";
+    document.querySelector("#spanUsuario").innerHTML = `Ingreso como ${login.usuario}`; //Actualiza el contenido del elemento con el ID "spanUsuario" para mostrar el mensaje "Ingreso como [nombre de usuario]".
+    reloadLogin() //Llama a la función "reloadLogin". Esta función actualiza la interfaz de acuerdo al estado de inicio de sesión.
+    document.querySelector("#slcUser").value = "select"; //Restablece el valor del elemento select con el ID "slcUser" a "select" 
   }
-  usuario.innerHTML = "" //Limpia el contenido del elemento usuario.
-  tipoUsuario.innerHTML = "" //Limpia el contenido del elemento tipoUsuario.
-  contrasenia.innerHTML = "" //Limpia el contenido del elemento contrasenia
+  usuario.innerHTML = ""; //Limpia el contenido del elemento con ID usuario.
+  tipoUsuario.innerHTML = ""; //Limpia el contenido del elemento con ID tipoUsuario.
+  contrasenia.innerHTML = ""; //Limpia el contenido del elemento con ID contrasenia
 }
 
 function loginInvitado() {
-  let pPostLogin = document.querySelector("#pPostIngreso");
-  let hPostLogin = document.querySelector("#hPostIngreso");
-  let censo = tomarCensoExistente(login.usuario)
-  let censista = tomarCensista(censo.idCensistas)
+  let pPostLogin = document.querySelector("#pPostIngreso"); //Obtiene el elemento con el ID "pPostIngreso" y lo asigna a la variable "pPostLogin".
+  let hPostLogin = document.querySelector("#hPostIngreso"); //Obtiene el elemento con el ID "hPostIngreso" y lo asigna a la variable "hPostLogin".
+  let censo = tomarCensoExistente(login.usuario) //Llama a la función "tomarCensoExistente" pasando como argumento "login.usuario" para obtener el censo existente correspondiente al usuario. lo gaurda en la variable censo.
+  let censista = tomarCensista(censo.idCensistas) // Llama a la función "tomarCensista" pasando como argumento "censo.idCensistas" para obtener el censista correspondiente al censo.
   if (!censo.verificado) { //Verifica si el censo no está verificado
     document.querySelector("#btnPostIngreso").style.display = "block";
     hPostLogin.innerHTML = `¡Bienvenido ${censo.nombre}!`
@@ -150,7 +149,7 @@ function loginInvitado() {
 }
 
 function mostrarIngreso() {
-  let value = document.querySelector("#slcUser").value;
+  let value = document.querySelector("#slcUser").value; //Obtiene el valor seleccionado del elemento con el ID "slcUser" y lo asigna a la variable "value".
   let txtPassword = document.querySelector("#txtPassword");
   let labelPassword = document.querySelector("#lblPassword");
   let txtUsuario = document.querySelector("#txtUsuario");
@@ -158,17 +157,15 @@ function mostrarIngreso() {
 
   document.querySelector("#login").style.display = "block";
   document.querySelector("#pMsj").innerHTML = "";
-  if (value === "u") {
+  if (value === "u") { // Comprueba si el valor seleccionado es igual a "u" (censista).
     document.querySelector("#btnLogin").style.display = "block"
-    document.querySelector(
-      "#lblUsuario"
-    ).innerHTML = `Ingrese su nombre de usuario:`;
+    document.querySelector("#lblUsuario").innerHTML = `Ingrese su nombre de usuario:`;
     labelUsuario.style.display = "block"
     txtUsuario.style.display = "block"
     txtUsuario.setAttribute("placeholder", "Ingrese su nombre de usuario...")
     labelPassword.style.display = "block"
     txtPassword.style.display = "block"
-  } else if (value === "i") {
+  } else if (value === "i") { //Comprueba si el valor seleccionado es igual a "i" (invitado).
     document.querySelector("#btnLogin").style.display = "block"
     document.querySelector("#lblUsuario").innerHTML = `Ingrese su cédula:`;
     txtUsuario.setAttribute("placeholder", "Ingrese su cédula...")
@@ -183,19 +180,19 @@ function mostrarIngreso() {
 
 
 function cargarDatos(cedula) {
-  desbloquearCampos();
-  let stringCedula = stringifyCedula(cedula)
-  limpiarCampos()
-  let censoEncontrado = null;
-  document.querySelector("#btnIngresarDatos").value = "Registrar censo";
-  document.querySelector("#btnEliminarDatos").style.display = "none";
-  document.querySelector("#btnIngresarDatos").style.display = "block";
-  for (let i = 0; i < sistema.censos.length; i++) {
-    let persona = sistema.censos[i];
-    if (persona.cedula === stringCedula) {
-      if (login.idCensistas === -1) {
-        document.querySelector("#btnIngresarDatos").value = "Modificar censo";
-        document.querySelector("#btnEliminarDatos").style.display = "block";
+  desbloquearCampos(); //Llama a la función "desbloquearCampos" para desbloquear los campos de entrada de datos.
+  let stringCedula = stringifyCedula(cedula) //Convierte la cédula recibida a una cadena y la asigna a la variable "stringCedula".
+  limpiarCampos(); //Llama a la función "limpiarCampos" para limpiar los valores de los campos de entrada de datos.
+  let censoEncontrado = null; //Inicializa la variable "censoEncontrado" como null.
+  document.querySelector("#btnIngresarDatos").value = "Registrar censo"; //Actualiza el valor del botón con el ID "btnIngresarDatos" para que muestre "Registrar censo".
+  document.querySelector("#btnEliminarDatos").style.display = "none"; //Oculta el botón con el ID "btnEliminarDatos".
+  document.querySelector("#btnIngresarDatos").style.display = "block"; //Muestra el botón con el ID "btnIngresarDatos".
+  for (let i = 0; i < sistema.censos.length; i++) { //Recorre todos los censos en el sistema.
+    let persona = sistema.censos[i]; //Asigna el censo actual a la variable "persona".
+    if (persona.cedula === stringCedula) { //Comprueba si la cédula del censo coincide con la cédula buscada
+      if (login.idCensistas === -1) { //Comprueba si el ID del censista en el inicio de sesión es -1 (invitado).
+        document.querySelector("#btnIngresarDatos").value = "Modificar censo"; //le aparece boton modificar censo
+        document.querySelector("#btnEliminarDatos").style.display = "block"; //le aparece boton eliminar datos
       } else {
         document.querySelector("#btnIngresarDatos").value = "Validar censo";
         document.querySelector("#btnEliminarDatos").style.display = "none";
@@ -235,9 +232,9 @@ function cargarPendientes() {
   let slcPendiente = document.querySelector("#slcPendiente")
   document.querySelector("#pCedula").innerHTML = "";
   slcPendiente.innerHTML = `<option value="select" selected>Seleccionar...</option>`
-  for (let i = 0; i < sistema.censos.length; i++) {
-    let censo = sistema.censos[i];
-    if (censo.idCensistas === login.idCensistas && !censo.verificado) {
+  for (let i = 0; i < sistema.censos.length; i++) { //recorrer los elementos del array censos del objeto sistema
+    let censo = sistema.censos[i]; //Asigna cada elemento del array censos a la variable censo
+    if (censo.idCensistas === login.idCensistas && !censo.verificado) { //Verificar si el censista coincide y el censo no está verificado
       slcPendiente.innerHTML += `<option value="${censo.cedula}">${censo.cedula} - ${censo.nombre} ${censo.apellido}</option>`
     }
   }
@@ -245,11 +242,11 @@ function cargarPendientes() {
 document.querySelector("#slcPendiente").addEventListener("change", () => document.querySelector("#txtCedula").value = document.querySelector("#slcPendiente").value);
 
 function consultarCensos() {
-  let cedula = stringifyCedula(document.querySelector("#txtCedula").value);
-  if (!validarCamposCompletados(cedula)) {
+  let cedula = stringifyCedula(document.querySelector("#txtCedula").value); //Obtener el valor de la cédula del campo de texto y convertirlo a formato válido
+  if (!validarCamposCompletados(cedula)) { //Verificar si se han completado todos los campos
     document.querySelector("#pCedula").innerHTML = "Debe completar todos los campos";
   } else {
-    if (!verificacionDeCI(cedula) && Number(cedula) !== 0) {
+    if (!verificacionDeCI(cedula) && Number(cedula) !== 0) { //Verificar si la cédula no es válida y no es igual a cero
       document.querySelector("#pCedula").innerHTML = "Debe ingresar una cedula valida";
     } else {
       cargarDatos(cedula)
@@ -260,47 +257,47 @@ function consultarCensos() {
 
 
 //---------------------------------------------------------------------------------------
-//funcionalidad para registrar un nuevo censista
+//Funcionalidad para registrar un nuevo censista
 
-document
-  .querySelector("#btnRegistrar")
-  .addEventListener("click", registrarCensista);
-
+document.querySelector("#btnRegistrar").addEventListener("click", registrarCensista);
 
 function verificarNombreUsuarioUnico(nombreUsuario) {
-  let existe = false;
-  for (let i = 0; i < sistema.censistas.length; i++) {
-    let censista = sistema.censistas[i];
-    if (censista.usuario.toLowerCase() === nombreUsuario.toLowerCase()) {
-      existe = true;
+  let existe = false; //Variable para indicar si el nombre de usuario existe o no
+  for (let i = 0; i < sistema.censistas.length; i++) { //Recorrer los elementos en el array censistas del objeto sistema
+    let censista = sistema.censistas[i]; // cada objeto censista del array censistas lo almaceno en la variable censista
+    if (censista.usuario.toLowerCase() === nombreUsuario.toLowerCase()) { //verificar si el nombre de usuario del censista ingresado ya coincide con algun otro nombre de usuario de censista
+      existe = true; //si ya existe el nombre de usuario devuelve true
     }
   }
   return existe;
 }
 
 function registrarCensista() {
+  // Obtener los valores de los campos de texto y eliminar los espacios en blanco al principio y al final
   let nombreUsuario = document.querySelector("#txtNombreDeUsuarioRegistro").value.trim();
   let nombre = document.querySelector("#txtNombreRegistro").value.trim();
   let contra = document.querySelector("#txtContraRegistro").value;
 
+  // Verificar si todos los campos están completados
   if (!validarCamposCompletados(nombreUsuario, nombre, contra)) {
     document.querySelector("#pMensajes").innerHTML =
       "Debe llenar todos los campos";
-    return;
+    return; //Salir de la función en caso de que no se completen todos los campos
   }
 
-  if (verificarNombreUsuarioUnico(nombreUsuario)) {
+  if (verificarNombreUsuarioUnico(nombreUsuario)) { //// Verificar si el nombre de usuario ya existe en otros censistas
     document.querySelector("#pMensajes").innerHTML =
       "Ya existe otro usuario con el mismo nombre de usuario";
-    return;
+    return; //Salir de la función si el nombre de usuario no es único
   }
 
-  if (!verificarFormatoContrasena(contra)) {
+  if (!verificarFormatoContrasena(contra)) { //Verificar si el formato de la contraseña no cumple con los requisitos
     document.querySelector("#pMensajes").innerHTML =
       "La contraseña debe tener como minimo 5 caracteres y debe incluir una minuscula, una mayuscula y un numero";
-    return;
+    return; //Salir de la función si el formato de la contraseña no es válido
   }
 
+  //Crear un nuevo objeto Censista con los datos proporcionados
   let censista = new Censista(nombreUsuario, nombre, contra);
   sistema.registrarCensista(censista);
   login = tomarCensista(censista.idCensistas)
@@ -318,8 +315,8 @@ function registrarCensista() {
 //funcion para acumular los datos de una nueva persona
 
 function tomarDatosCenso() {
-  let cedula = document.querySelector("#txtCedulaCenso").value;
-  let nuevaCedula = stringifyCedula(cedula);
+  let cedula = document.querySelector("#txtCedulaCenso").value; //guarda el valor ingresado en el campo de texto con id txtCedulaCenso y lo guarda en la variable cedula.
+  let nuevaCedula = stringifyCedula(cedula); // Llama a la función stringifyCedula para convertir la cédula en un string  y guarda el resultado en la variable nuevaCedula.
   let nombre = document.querySelector("#txtNombre").value;
   let apellido = document.querySelector("#txtApellido").value;
   let edad = document.querySelector("#txtEdad").value;
@@ -337,14 +334,12 @@ function tomarDatosCenso() {
 }
 
 
-document
-  .querySelector("#btnIngresarDatos")
-  .addEventListener("click", ingresarDatosPersona);
+document.querySelector("#btnIngresarDatos").addEventListener("click", ingresarDatosPersona);
 
 function ingresarDatosPersona() {
-  pAuxDatos.innerHTML = "";
-  let datos = tomarDatosCenso()
-  if (!validarCamposCompletados(
+  pAuxDatos.innerHTML = ""; //Limpia el contenido del elemento pAuxDatos
+  let datos = tomarDatosCenso() //Obtiene los datos del censo utilizando la función tomarDatosCenso y los guarda en la variable datos.
+  if (!validarCamposCompletados( //verifica que todos los campos hayan sido completados
       datos.cedula,
       datos.nombre,
       datos.apellido,
@@ -355,21 +350,22 @@ function ingresarDatosPersona() {
     pAuxDatos.innerHTML = "Debe completar todos los campos";
     return;
   }
-  if (!verificarEdad(datos.edad)) {
+  if (!verificarEdad(datos.edad)) { //verifica que la edad ingresada se encuentre en un rango especifico
     pAuxDatos.innerHTML = "Edad invalida. (No puede ser menor que 0 ni mayor que 130";
     return;
   }
 
-  let censoExistente = false
-  for (let i = 0; i < sistema.censos.length; i++) {
-    let censo = sistema.censos[i]
-    if (datos.cedula === censo.cedula) {
+  let censoExistente = false //inicializa la variable censoExistente en false
+  for (let i = 0; i < sistema.censos.length; i++) { //recorre el array de censos del objeto sistema
+    let censo = sistema.censos[i] //a cada objeto en la posicion del array censos le asigna la variable censo
+    if (datos.cedula === censo.cedula) { //verifica si la cedula ingresada ya existe en el array
       censoExistente = censo
     }
   }
-  if (!censoExistente) {
-    let nuevoCenso = new Censo(datos.cedula, datos.nombre, datos.apellido, datos.edad, datos.departamento, datos.ocupacion)
-    sistema.guardarCenso(nuevoCenso)
+
+  if (!censoExistente) { //si el censo no existe
+    let nuevoCenso = new Censo(datos.cedula, datos.nombre, datos.apellido, datos.edad, datos.departamento, datos.ocupacion) //se crea un nuevo objeto censo con los datos proporcionados
+    sistema.guardarCenso(nuevoCenso) //guarda el nuevo censo en el objeto sistema
     let censo = tomarCensoExistente(datos.cedula)
     pAuxDatos.innerHTML = "Se han ingresado los datos del censo correctamente"
     if (login.idCensistas !== -1) {
@@ -378,7 +374,7 @@ function ingresarDatosPersona() {
       cargarDatos(censo.cedula)
       pAuxDatos.innerHTML = `Se ha registrado y validado el censo para la cédula ${censo.cedula} correctamente. `
     } else {
-      let idAsignar = numeroAleatorio(sistema.censistas.length)
+      let idAsignar = numeroAleatorio(sistema.censistas.length) //genera un numeroAleatorio para asignar el censo a un censista
       censo.idCensistas = idAsignar;
       let censista = tomarCensista(idAsignar)
       cargarDatos(datos.cedula)
@@ -408,15 +404,15 @@ function ingresarDatosPersona() {
 // LÓGICA ELIMINAR CENSO
 document.querySelector("#btnEliminarDatos").addEventListener("click", eliminarCenso);
 
-function eliminarCenso() {
-  let datos = tomarDatosCenso()
-  let censo = tomarCensoExistente(datos.cedula)
-  if (!censo.verificado) {
-    sistema.borrarCenso(datos.cedula)
+function eliminarCenso() { // Función para eliminar un censo.
+  let datos = tomarDatosCenso(); // Obtiene los datos del censo utilizando la función tomarDatosCenso().
+  let censo = tomarCensoExistente(datos.cedula); // Obtiene el censo existente basado en la cédula obtenida anteriormente.
+  if (!censo.verificado) { // Verifica si el censo no ha sido verificado.
+    sistema.borrarCenso(datos.cedula) // Borra el censo del sistema utilizando la función sistema.borrarCenso().
     document.querySelector("#btnIngresarDatos").value = "Registrar censo";
     document.querySelector("#pMsj").innerHTML = "<strong>Se ha eliminado el censo del sistema</strong>"
-    login = null
-    reloadLogin()
+    login = null // Reinicia la variable de inicio de sesión (login) a null.
+    reloadLogin() // Recarga la sección de inicio de sesión.
     cambiarSeccion("ingreso")
     limpiarCampos()
   }
@@ -439,12 +435,12 @@ function leerDatosReasignacion() {
   document.querySelector("#pReasignacion").innerHTML = ``;
   let slcPersonasPendientes = document.querySelector("#slcPersonasPendientes");
   let slcCensistasDisponibles = document.querySelector("#slcCensista");
-  let idCensista = login.idCensistas
+  let idCensista = login.idCensistas // Obtiene el ID del censista actualmente logueado (login.idCensistas).
   slcPersonasPendientes.innerHTML = `<option value="select" selected disabled >Seleccionar...</option>`
   slcCensistasDisponibles.innerHTML = `<option value="select" selected disabled>Seleccionar...</option>`
-  for (let i = 0; i < sistema.censistas.length; i++) {
+  for (let i = 0; i < sistema.censistas.length; i++) { //recorre el array de censistas
     let censista = sistema.censistas[i]
-    if (censista.idCensistas !== idCensista) {
+    if (censista.idCensistas !== idCensista) { //Verifica si el ID del censista actual no coincide con el ID del censista actualmente logueado.
       slcCensistasDisponibles.innerHTML += `<option value="${censista.idCensistas}">${censista.nombre} (${censista.usuario})</option>`
     }
   }

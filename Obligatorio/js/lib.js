@@ -96,7 +96,7 @@ function stringifyCedula(cedula) { //La función stringifyCedula elimina cualqui
   return newCedula;
 }
 
-function verificarEdad(edad) {
+function verificarEdad(edad) { //funcion que verifica que la edad ingresada este en un rango especifico entre 0 y 130.
   return (Number(edad) > 0 && Number(edad) < 130);
 }
 
