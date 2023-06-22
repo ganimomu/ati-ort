@@ -59,7 +59,7 @@ class Sistema {
       new Censo("12121212", "Rocio", "Lujan", 18, "S", "est"),
       new Censo("21212121", "Esther", "Esposito", 15, "S", "est"),
       new Censo("13131313", "Gian", "Colman", 23, "R", "est"),
-      new Censo("31313131", "Santiago", "Fagnoni", 40, "Q", "dep"),
+      new Censo("31313131", "Santiago", "Fagundez", 40, "Q", "dep"),
       new Censo("41414141", "Isak", "Alexander", 40, "P", "dep"),
       new Censo("14141414", "Ivan", "Rustik", 70, "O", "ind"),
       new Censo("51515151", "Tomas", "Vino", 24, "N", "est"),
