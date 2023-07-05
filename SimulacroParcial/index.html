@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="slcFuncionario">Elegir funcionario:</label>
+    <select id="slcFuncionario">
+        <option value="select" selected disabled>Seleccionar...</option>
+    </select>
+    <br />
+    <label for="txtFecha">Fecha y hora:</label>
+    <input type="text" id="txtFecha" /><br />
+    <label for="slcRegistro">Tipo de registro:</label>
+    <select id="slcRegistro">
+        <option value="select" selected disabled>Seleciconar...</option>
+        <option value="in">Entrada</option>
+        <option value="out">Salida</option>
+    </select>
+    <br />
+    <input type="button" id="btnIngreso" value="Marcar" style="border: 1; border-radius: 1;" /> <br />
+    <p id="pAux"></p>
+    <table>
+        <tbody id="tblFuncionarios"></tbody>
+    </table>
+    <script src="classes.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
